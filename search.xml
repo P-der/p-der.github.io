@@ -1,28 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[vue学习]]></title>
-    <url>%2F2018%2F04%2F08%2Fvue%2F</url>
-    <content type="text"><![CDATA[我的天哪]]></content>
+    <title><![CDATA[test]]></title>
+    <url>%2F2018%2F04%2F09%2Ftest%2F</url>
+    <content type="text"><![CDATA[这是一个引用 1[rectangle setX: 10 y: 10 width: 20 height: 20]; content 这是个啥 H1H2h3h4 无序列表1 无序列表2 有序1 有序2 强调？？？？ 百度]]></content>
       <categories>
-        <category>vue</category>
+        <category>test</category>
       </categories>
       <tags>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[你好，hexo]]></title>
-    <url>%2F2018%2F04%2F08%2F%E4%BD%A0%E5%A5%BD%EF%BC%8Chexo%2F</url>
-    <content type="text"><![CDATA[学习搭建博客中]]></content>
-      <categories>
-        <category>搭建博客</category>
-      </categories>
-      <tags>
-        <tag>npm</tag>
-        <tag>hexo</tag>
-        <tag>github</tag>
-        <tag>xxx</tag>
+        <tag>test</tag>
       </tags>
   </entry>
 </search>
