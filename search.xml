@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[web基础]]></title>
+    <url>%2F2018%2F04%2F17%2Fweb%E5%9F%BA%E7%A1%80%2F</url>
+    <content type="text"><![CDATA[五大主流框架及其内核浏览器 内核 Chrome Blink/Webkit IE trident firefox Gecko opera presto/Blink safari Webkit 是不是很惊讶没有国产浏览器，这里要说明一下主流浏览器，这些主流浏览器不仅仅用户量大，而且拥有自己的内核，这与国产浏览器是有区别的，国产浏览器使用的都是以上主流浏览器的内核，最重要的是内核没有自己的突破，依赖于以上这些强大的内核]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>html</tag>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[test]]></title>
     <url>%2F2018%2F04%2F09%2Ftest%2F</url>
-    <content type="text"><![CDATA[这是一个引用 1[rectangle setX: 10 y: 10 width: 20 height: 20]; content 这是个啥 H1H2h3h4 无序列表1 无序列表2 有序1 有序2 强调？？？？ 百度]]></content>
+    <content type="text"><![CDATA[这是一个引用这是啥呢 1[rectangle setX: 10 y: 10 width: 20 height: 20]; content 这是个啥 H1H2h3h4 无序列表1 无序列表2 有序1 有序2 强调？？？？ 百度]]></content>
       <categories>
         <category>test</category>
       </categories>
