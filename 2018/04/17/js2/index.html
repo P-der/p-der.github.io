@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法  问题  如豆瓣搜索框，在搜索时，会显示一个下拉列表，这个时候如果点击搜索框外面，会触发blur事件，下拉列表隐藏；如果点击下拉列表，则会跳转到相应的页面，在练习过程中，这个环节出了">
+<meta name="description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法">
 <meta name="keywords" content="web,js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js事件——点击事件与失焦事件冲突解决">
 <meta property="og:url" content="http://yoursite.com/2018/04/17/js2/index.html">
 <meta property="og:site_name" content="P_der的博客">
-<meta property="og:description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法  问题  如豆瓣搜索框，在搜索时，会显示一个下拉列表，这个时候如果点击搜索框外面，会触发blur事件，下拉列表隐藏；如果点击下拉列表，则会跳转到相应的页面，在练习过程中，这个环节出了一些问题，我的部分代码如下 123$(&apos;input&apos;).on(&apos;blur&apos;,f">
+<meta property="og:description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-10T13:38:06.634Z">
+<meta property="og:updated_time" content="2018-05-10T13:45:56.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js事件——点击事件与失焦事件冲突解决">
-<meta name="twitter:description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法  问题  如豆瓣搜索框，在搜索时，会显示一个下拉列表，这个时候如果点击搜索框外面，会触发blur事件，下拉列表隐藏；如果点击下拉列表，则会跳转到相应的页面，在练习过程中，这个环节出了一些问题，我的部分代码如下 123$(&apos;input&apos;).on(&apos;blur&apos;,f">
+<meta name="twitter:description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法">
 
 
 
@@ -389,6 +389,7 @@
         <blockquote>
 <p>前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法</p>
 </blockquote>
+<a id="more"></a>
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>  如豆瓣搜索框，在搜索时，会显示一个下拉列表，这个时候如果点击搜索框外面，会触发blur事件，下拉列表隐藏；如果点击下拉列表，则会跳转到相应的页面，在练习过程中，这个环节出了一些问题，我的部分代码如下</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'input'</span>).on(<span class="string">'blur'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    $(<span class="string">'list'</span>).css(&#123;<span class="attr">display</span>:<span class="string">'none'</span>&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>结果在点击下拉列表的时候无法进行跳转（在下拉列表中有a标签包裹，所以利用默认事件进行跳转页面）</p>

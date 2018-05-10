@@ -531,22 +531,16 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法</p>
 </blockquote>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>  如豆瓣搜索框，在搜索时，会显示一个下拉列表，这个时候如果点击搜索框外面，会触发blur事件，下拉列表隐藏；如果点击下拉列表，则会跳转到相应的页面，在练习过程中，这个环节出了一些问题，我的部分代码如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'input'</span>).on(<span class="string">'blur'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    $(<span class="string">'list'</span>).css(&#123;<span class="attr">display</span>:<span class="string">'none'</span>&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>结果在点击下拉列表的时候无法进行跳转（在下拉列表中有a标签包裹，所以利用默认事件进行跳转页面）</p>
-<h3 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h3><p>通过分析可以知道整体操作只与click事件和blur事件有关，故此判断触发顺序</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'input'</span>).on(<span class="string">'blur'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br><span class="line">$(<span class="string">'a'</span>).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="comment">//2</span></span><br></pre></td></tr></table></figure>
-<p>由此可知，先触发了blur事件，然后触发了click事件，所以，在blur事件中使list的display：none；就会在触发click事件之前把a隐藏，这样的话，就无法点击a标签，进而无法触发点击事件</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>利用事件冒泡，首先无论如何blur事件一定先触发，所以隐藏list不能在blur事件中处理，那么应该在click事件中处理，又因为不能单单在a标签中处理（否则点击页面其他部分触发blur事件时就无法使list隐藏），所以利用事件冒泡，在body上进行隐藏处理，代码如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'body'</span>).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(e.target.tagName!==<span class="string">'INPUT'</span>)&#123;</span><br><span class="line">        $(<span class="string">'list'</span>).css(&#123;<span class="attr">display</span>:<span class="string">'none'</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>通过判断事件源如果不是点击输入框，就可以判断为点击到了外部，此时会默认触发blur事件，而且会使list隐藏；如果点击的是输入框，则不隐藏list</p>
-<p>掘金 P-der，希望得到大佬指教</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/17/js2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
