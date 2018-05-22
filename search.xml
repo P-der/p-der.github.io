@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[web基础（一）]]></title>
-    <url>%2F2018%2F04%2F17%2Fjs1%2F</url>
-    <content type="text"><![CDATA[Js历史JavaScript在浏览器中的首次出现是在1996年，为了改善网页的用户体验，作者是Brendan Eich （关于这个语言的命名就比较有意思了，当时为了宣传采用的这个名字，没错，就是想蹭Java的热度）；接下来就是这个语言的运行环境了，所以接下来，我们来了解一下浏览器 浏览器浏览器由shell和内核组成，内核中的js引擎就是与该语言最相关的东西了 2001年IE6发布，实现了对js引擎的优化，2008年Google发布了Chrome浏览器，这时采用的就是大名鼎鼎的V8引擎（当然不是汽车上的啦），此后Firefox也推出了强大的js引擎，再然后js就开始大力发展了。。。。。。 以下就是浏览器中最主要的五大主流浏览器及内核： 五大主流浏览器及其内核浏览器 内核 Chrome Blink/Webkit IE trident firefox Gecko opera presto/Blink safari Webkit 是不是很惊讶没有国产浏览器，这里要说明一下主流浏览器，这些主流浏览器不仅仅用户量大，而且拥有自己的内核，这与国产浏览器是有区别的，国产浏览器使用的都是以上主流浏览器的内核，最重要的是内核没有自己的突破，依赖于以上这些强大的内核 Js的语言特性 解释性语言 不需要编译，跨平台性好 单线程 在Js发展初期，语言规范混乱，为了取得技术优势，方便推广，进行了语言的统一规范，就是ECMA标准，因此我们更喜欢称Js为ECMAScript。但是在此说明，Js不仅仅只有ECMAScript，它还包括DOM，BOM部分 第一次写博客，请多多包涵，如有错误，还请不吝赐教，谢谢]]></content>
+    <title><![CDATA[快排学习]]></title>
+    <url>%2F2018%2F05%2F21%2Fjs3%2F</url>
+    <content type="text"><![CDATA[前段时间逛掘金的时候，看到了吗掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序 快速排序介绍算法导论上是这样写的 对一个典型子数组A[p..r]排序的分治过程的三个步骤： 分解 数组A[p..r]被划分成两个（可能空）子数组A[p..q-1]和A[q+1..r]，使得A[p..q-1]中的每个元素都小于等于A(q)，而且，小于等于A[q+1..r]中的元素。小标q也在这个划分过程中进行计算。 解决 通过递归调用快速排序，对子数组A[p..q-1]和A[q+1..r]排序。 合并 因为两个子数组是就地排序的，将它们的合并不需要操作：整个数组A[p..r]已排序。 下面的过程实现快速排序： 12345QUICKSORT(A,p,r) if&lt;r then q &lt;-- PARTITION(A,p,r) QUICKSORT(A,p,q-1) QUICKSORT(A,q+1,r) 为排序一个完整的数组A，最初的调用是QUICKSORT(A,1,length[A])。 数组划分快速排序算法的关键是PARTITION过程，它对子数组A[p..r]进行就地重排： 123456789PARTITION(A,p,r) x &lt;-- A[r] i &lt;-- p-1 for j &lt;-- p to r-1 do if A[j]&lt;=x then i &lt;-- i+1 exchange A[i]&lt;--&gt;A[j] exchange A[i+1]&lt;--&gt;A[r] return i+1 图解 JavaScript代码实现function quicksort(arr,l,r){ if(l&lt;r){ var q = partition(arr,l,r); quicksort(arr,l,q-1); quicksort(arr,q+1,r); } } function partition(arr,l,r){ var x = arr[r]; var i = l-1; for(var j = l;j&lt;r;j++){ if(arr[j]&lt;=x){ i++; var temp = arr[j]; arr[j] = arr[i]; arr[i] = temp; } } arr[r] = arr[i+1]; arr[i+1] = x; return i+1; } 以上就是快排的基本实现，仿照算法导论进行的编写，嘿嘿嘿]]></content>
       <categories>
         <category>学习笔记</category>
       </categories>
@@ -14,8 +14,20 @@
   </entry>
   <entry>
     <title><![CDATA[js事件——点击事件与失焦事件冲突解决]]></title>
-    <url>%2F2018%2F04%2F17%2Fjs2%2F</url>
+    <url>%2F2018%2F05%2F09%2Fjs2%2F</url>
     <content type="text"><![CDATA[前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法 问题 如豆瓣搜索框，在搜索时，会显示一个下拉列表，这个时候如果点击搜索框外面，会触发blur事件，下拉列表隐藏；如果点击下拉列表，则会跳转到相应的页面，在练习过程中，这个环节出了一些问题，我的部分代码如下 123$('input').on('blur',function(e)&#123; $('list').css(&#123;display:'none'&#125;)&#125;) 结果在点击下拉列表的时候无法进行跳转（在下拉列表中有a标签包裹，所以利用默认事件进行跳转页面） 分析问题通过分析可以知道整体操作只与click事件和blur事件有关，故此判断触发顺序 123456789$('input').on('blur',function(e)&#123; console.log(1)&#125;)$('a').on('click',function(e)&#123; console.log(2)&#125;)// 输出结果//1//2 由此可知，先触发了blur事件，然后触发了click事件，所以，在blur事件中使list的display：none；就会在触发click事件之前把a隐藏，这样的话，就无法点击a标签，进而无法触发点击事件 解决方法利用事件冒泡，首先无论如何blur事件一定先触发，所以隐藏list不能在blur事件中处理，那么应该在click事件中处理，又因为不能单单在a标签中处理（否则点击页面其他部分触发blur事件时就无法使list隐藏），所以利用事件冒泡，在body上进行隐藏处理，代码如下: 12345$('body').on('click',function(e)&#123; if(e.target.tagName!=='INPUT')&#123; $('list').css(&#123;display:'none'&#125;); &#125;&#125;) 通过判断事件源如果不是点击输入框，就可以判断为点击到了外部，此时会默认触发blur事件，而且会使list隐藏；如果点击的是输入框，则不隐藏list 掘金 P-der，希望得到大佬指教]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[web基础（一）]]></title>
+    <url>%2F2018%2F04%2F17%2Fjs1%2F</url>
+    <content type="text"><![CDATA[Js历史JavaScript在浏览器中的首次出现是在1996年，为了改善网页的用户体验，作者是Brendan Eich （关于这个语言的命名就比较有意思了，当时为了宣传采用的这个名字，没错，就是想蹭Java的热度）；接下来就是这个语言的运行环境了，所以接下来，我们来了解一下浏览器 浏览器浏览器由shell和内核组成，内核中的js引擎就是与该语言最相关的东西了 2001年IE6发布，实现了对js引擎的优化，2008年Google发布了Chrome浏览器，这时采用的就是大名鼎鼎的V8引擎（当然不是汽车上的啦），此后Firefox也推出了强大的js引擎，再然后js就开始大力发展了。。。。。。 以下就是浏览器中最主要的五大主流浏览器及内核： 五大主流浏览器及其内核浏览器 内核 Chrome Blink/Webkit IE trident firefox Gecko opera presto/Blink safari Webkit 是不是很惊讶没有国产浏览器，这里要说明一下主流浏览器，这些主流浏览器不仅仅用户量大，而且拥有自己的内核，这与国产浏览器是有区别的，国产浏览器使用的都是以上主流浏览器的内核，最重要的是内核没有自己的突破，依赖于以上这些强大的内核 Js的语言特性 解释性语言 不需要编译，跨平台性好 单线程 在Js发展初期，语言规范混乱，为了取得技术优势，方便推广，进行了语言的统一规范，就是ECMA标准，因此我们更喜欢称Js为ECMAScript。但是在此说明，Js不仅仅只有ECMAScript，它还包括DOM，BOM部分 第一次写博客，请多多包涵，如有错误，还请不吝赐教，谢谢]]></content>
       <categories>
         <category>学习笔记</category>
       </categories>

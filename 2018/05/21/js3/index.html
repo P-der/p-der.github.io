@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法">
+<meta name="description" content="前段时间逛掘金的时候，看到了吗掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序">
 <meta name="keywords" content="web,js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js事件——点击事件与失焦事件冲突解决">
-<meta property="og:url" content="http://yoursite.com/2018/04/17/js2/index.html">
+<meta property="og:title" content="快排学习">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/js3/index.html">
 <meta property="og:site_name" content="P_der的博客">
-<meta property="og:description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法">
+<meta property="og:description" content="前段时间逛掘金的时候，看到了吗掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-10T13:45:56.175Z">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/634705/201509/634705-20150921205939850-1052509861.png">
+<meta property="og:updated_time" content="2018-05-22T02:43:17.321Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js事件——点击事件与失焦事件冲突解决">
-<meta name="twitter:description" content="前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法">
+<meta name="twitter:title" content="快排学习">
+<meta name="twitter:description" content="前段时间逛掘金的时候，看到了吗掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/634705/201509/634705-20150921205939850-1052509861.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/17/js2/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/21/js3/"/>
 
 
 
 
 
-  <title>js事件——点击事件与失焦事件冲突解决 | P_der的博客</title>
+  <title>快排学习 | P_der的博客</title>
   
 
 
@@ -297,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/js2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/js3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="p_der">
@@ -314,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">js事件——点击事件与失焦事件冲突解决</h1>
+          <h1 class="post-title" itemprop="name headline">快排学习</h1>
         
 
         <div class="post-meta">
@@ -326,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T16:06:01+08:00">
-                2018-04-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T22:49:29+08:00">
+                2018-05-21
               </time>
             
 
@@ -387,19 +389,47 @@
 
       
         <blockquote>
-<p>前端菜鸟，哈哈哈，在练习的过程中，遇到了事件冲突问题，并通过薅头发的方法得以解决，希望通过和大佬们进行讨论，学习一下是否有更好的解决方法</p>
+<p>前段时间逛掘金的时候，看到了吗掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>  如豆瓣搜索框，在搜索时，会显示一个下拉列表，这个时候如果点击搜索框外面，会触发blur事件，下拉列表隐藏；如果点击下拉列表，则会跳转到相应的页面，在练习过程中，这个环节出了一些问题，我的部分代码如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'input'</span>).on(<span class="string">'blur'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    $(<span class="string">'list'</span>).css(&#123;<span class="attr">display</span>:<span class="string">'none'</span>&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>结果在点击下拉列表的时候无法进行跳转（在下拉列表中有a标签包裹，所以利用默认事件进行跳转页面）</p>
-<h3 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h3><p>通过分析可以知道整体操作只与click事件和blur事件有关，故此判断触发顺序</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'input'</span>).on(<span class="string">'blur'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br><span class="line">$(<span class="string">'a'</span>).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">//1</span></span><br><span class="line"><span class="comment">//2</span></span><br></pre></td></tr></table></figure>
-<p>由此可知，先触发了blur事件，然后触发了click事件，所以，在blur事件中使list的display：none；就会在触发click事件之前把a隐藏，这样的话，就无法点击a标签，进而无法触发点击事件</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>利用事件冒泡，首先无论如何blur事件一定先触发，所以隐藏list不能在blur事件中处理，那么应该在click事件中处理，又因为不能单单在a标签中处理（否则点击页面其他部分触发blur事件时就无法使list隐藏），所以利用事件冒泡，在body上进行隐藏处理，代码如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'body'</span>).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(e.target.tagName!==<span class="string">'INPUT'</span>)&#123;</span><br><span class="line">        $(<span class="string">'list'</span>).css(&#123;<span class="attr">display</span>:<span class="string">'none'</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>通过判断事件源如果不是点击输入框，就可以判断为点击到了外部，此时会默认触发blur事件，而且会使list隐藏；如果点击的是输入框，则不隐藏list</p>
-<p>掘金 P-der，希望得到大佬指教</p>
+<h3 id="快速排序介绍"><a href="#快速排序介绍" class="headerlink" title="快速排序介绍"></a>快速排序介绍</h3><pre><code>算法导论上是这样写的
+</code></pre><blockquote>
+<p>对一个典型子数组A[p..r]排序的分治过程的三个步骤：</p>
+<h6 id="分解"><a href="#分解" class="headerlink" title="分解"></a>分解</h6><p>  数组A[p..r]被划分成两个（可能空）子数组A[p..q-1]和A[q+1..r]，使得A[p..q-1]中的每个元素都小于等于A(q)，而且，小于等于A[q+1..r]中的元素。小标q也在这个划分过程中进行计算。</p>
+<h6 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h6><p>  通过递归调用快速排序，对子数组A[p..q-1]和A[q+1..r]排序。</p>
+<h6 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h6><p>  因为两个子数组是就地排序的，将它们的合并不需要操作：整个数组A[p..r]已排序。</p>
+</blockquote>
+<pre><code>下面的过程实现快速排序：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">QUICKSORT(A,p,r)</span><br><span class="line"> if&lt;r</span><br><span class="line">  then q &lt;-- PARTITION(A,p,r)</span><br><span class="line">   QUICKSORT(A,p,q-1)</span><br><span class="line">   QUICKSORT(A,q+1,r)</span><br></pre></td></tr></table></figure>
+
+为排序一个完整的数组A，最初的调用是QUICKSORT(A,1,length[A])。
+</code></pre><h6 id="数组划分"><a href="#数组划分" class="headerlink" title="数组划分"></a>数组划分</h6><pre><code>快速排序算法的关键是PARTITION过程，它对子数组A[p..r]进行就地重排：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PARTITION(A,p,r)</span><br><span class="line"> x &lt;-- A[r]</span><br><span class="line"> i &lt;-- p-1</span><br><span class="line"> for j &lt;-- p to r-1</span><br><span class="line">  do if A[j]&lt;=x</span><br><span class="line">   then i &lt;-- i+1</span><br><span class="line">    exchange A[i]&lt;--&gt;A[j]</span><br><span class="line"> exchange A[i+1]&lt;--&gt;A[r]</span><br><span class="line"> return i+1</span><br></pre></td></tr></table></figure>
+</code></pre><h6 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h6><p><img src="https://images2015.cnblogs.com/blog/634705/201509/634705-20150921205939850-1052509861.png" alt="快速排序图解（无耻抠图）"></p>
+<h4 id="JavaScript代码实现"><a href="#JavaScript代码实现" class="headerlink" title="JavaScript代码实现"></a>JavaScript代码实现</h4><pre><code class="JavaScript"><span class="function"><span class="keyword">function</span> <span class="title">quicksort</span>(<span class="params">arr,l,r</span>)</span>{
+    <span class="keyword">if</span>(l&lt;r){
+        <span class="keyword">var</span> q = partition(arr,l,r);
+        quicksort(arr,l,q<span class="number">-1</span>);
+        quicksort(arr,q+<span class="number">1</span>,r);
+    }
+}
+<span class="function"><span class="keyword">function</span> <span class="title">partition</span>(<span class="params">arr,l,r</span>)</span>{
+    <span class="keyword">var</span> x = arr[r];
+    <span class="keyword">var</span> i = l<span class="number">-1</span>;
+    <span class="keyword">for</span>(<span class="keyword">var</span> j = l;j&lt;r;j++){
+        <span class="keyword">if</span>(arr[j]&lt;=x){
+            i++;
+            <span class="keyword">var</span> temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+        }
+    }
+    arr[r] = arr[i+<span class="number">1</span>];
+    arr[i+<span class="number">1</span>] = x;
+    <span class="keyword">return</span> i+<span class="number">1</span>;
+}
+</code></pre>
+<p>以上就是快排的基本实现，仿照算法导论进行的编写，嘿嘿嘿  </p>
 
       
     </div>
@@ -432,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/09/test/" rel="next" title="test">
-                <i class="fa fa-chevron-left"></i> test
+              <a href="/2018/05/09/js2/" rel="next" title="js事件——点击事件与失焦事件冲突解决">
+                <i class="fa fa-chevron-left"></i> js事件——点击事件与失焦事件冲突解决
               </a>
             
           </div>
@@ -441,10 +471,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/17/js1/" rel="prev" title="web基础（一）">
-                web基础（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -521,7 +547,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -576,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析问题"><span class="nav-number">2.</span> <span class="nav-text">分析问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-number">3.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#快速排序介绍"><span class="nav-number">1.</span> <span class="nav-text">快速排序介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#分解"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">分解</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#解决"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#合并"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">合并</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数组划分"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">数组划分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#图解"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">图解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript代码实现"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript代码实现</span></a></li></ol></li></ol></div>
             
 
           </div>
