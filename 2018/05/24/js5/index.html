@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="web,js,array," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="P_der的博客">
-<meta property="og:url" content="http://yoursite.com/categories/test/index.html">
+<meta name="description" content="这篇主要写关于array（没有讲ES5中的一些新方法）">
+<meta name="keywords" content="web,js,array">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js基础知识（三）">
+<meta property="og:url" content="http://yoursite.com/2018/05/24/js5/index.html">
 <meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="这篇主要写关于array（没有讲ES5中的一些新方法）">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-24T14:03:54.629Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="P_der的博客">
+<meta name="twitter:title" content="js基础知识（三）">
+<meta name="twitter:description" content="这篇主要写关于array（没有讲ES5中的一些新方法）">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/test/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/24/js5/"/>
 
 
 
 
 
-  <title>分类: test | P_der的博客</title>
+  <title>js基础知识（三） | P_der的博客</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -278,55 +283,217 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>test<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/js5/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="p_der">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="P_der的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/04/09/test/" itemprop="url">
-              
-                <span itemprop="name">test</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">js基础知识（三）</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-09T10:11:45+08:00"
-              content="2018-04-09" >
-          04-09
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T20:12:58+08:00">
+                2018-05-24
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇主要写关于array（没有讲ES5中的一些新方法）</p>
+<a id="more"></a>
+<h5 id="数组介绍"><a href="#数组介绍" class="headerlink" title="数组介绍"></a>数组介绍</h5><pre><code>数组是值的有序集合。在js中数组的值可以是任何类型。每个值对应的位置成为索引；js数组是js对象的特殊形式，所以有一种说法是，在js中一切皆对象，js中允许的索引为32位
+</code></pre><h5 id="数组的基本操作"><a href="#数组的基本操作" class="headerlink" title="数组的基本操作"></a>数组的基本操作</h5><ul>
+<li><p>数组的创建<br> 数组创建的最简单方法是数组直接量；</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">var</span> arr1 = [<span class="number">1</span>,<span class="string">'2'</span>,&#123;&#125;,[<span class="number">1</span>,<span class="number">2</span>],<span class="literal">false</span>];</span><br></pre></td></tr></table></figure>
+<p> 数组的另外一种方法就比较麻烦</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(); <span class="comment">//相当于 var arr = [];</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">10</span>); <span class="comment">//相当于创建了一个长度为10的空数组</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>,<span class="string">'2'</span>,&#123;&#125;,[<span class="number">1</span>,<span class="number">2</span>],<span class="literal">false</span>); <span class="comment">//这个就相当于 var arr1 = [1,'2',&#123;&#125;,[1,2],false];</span></span><br></pre></td></tr></table></figure>
+<p> 所以我们通常使用数组直接量的方法进行创建，因为简单太多了</p>
+</li>
+<li><p>数组的基础操作</p>
+<ul>
+<li><p>查找<br>  通过[]中添加索引进行查找</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr[<span class="number">0</span>] <span class="comment">// 1</span></span><br><span class="line">arr[<span class="number">1</span>] <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加<br>  添加和改写array中的元素是一样的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr[<span class="number">3</span>] = <span class="number">4</span>; <span class="comment">//arr为[1,2,3,4];</span></span><br><span class="line">arr[<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">//arr为[0,2,3,4];</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组的长度<br>  数组的长度就数组中元素的个数 通过 ‘ .’的形式使用，并且可以通过改变数组的长度进行删除和添加数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.length = <span class="number">3</span>; <span class="comment">// arr 为 [0,1,2]</span></span><br><span class="line">arr.length = <span class="number">4</span>; <span class="comment">// arr 为 [0, 1, 2, empty] empty是空值的意思</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>数组方法    </p>
+<ul>
+<li><p>join()<br>  该方法可以将数组拼接成字符串，返回值为拼成的字符串，有一个参数，使用该参数进行拼接，如果没有的话，默认为以’,’进行拼接，如果数组中的元素也是数组也会被打开进行拼接，如果是对象的话，会使用Object.prototype.toString(item); 这样的话就会拼成’[object Object]’,如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.join(); <span class="comment">// '1,2,3'</span></span><br><span class="line">arr = [[[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]],[<span class="number">5</span>,<span class="number">6</span>]];</span><br><span class="line">arr.join(); <span class="comment">// '1,2,3,4,5,6'</span></span><br><span class="line">arr = [[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],&#123;<span class="attr">name</span>:<span class="string">'pde'</span>,<span class="attr">age</span>:<span class="number">18</span>&#125;];</span><br><span class="line">arr.join() <span class="comment">// '1,2,3,[object Object]'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>reverse()<br>  逆转，改变了原数组，返回值为原数组</p>
+</li>
+<li><p>sort()<br>  排序，如果没有参数，则进行最简单的排序，按照数字大小和字母表进行排序，注意字符串的比较与数字不同，字符串是由第一位开始比较，如果数组中的元素不是原始值，进行隐式类型转化比较，其中为undefined的元素，会被放到数组的尾部；sort最强大点，在于它的参数，它的参数是一个函数 通过返回值进行排序；返回值为原数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">33</span>,<span class="number">4</span>,<span class="number">1111</span>,<span class="number">222</span>];</span><br><span class="line">a.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a - b;       <span class="comment">// 返回值为正数，a,b互换位置，ab分别是前一个元素和后一个元素的值，负数不变</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>concat()<br>  返回值为一个新数组，新数组的元素包括调用concat的数组和其中的参数，如果其中的参数为数组，连接的是该数组中的元素，并不是数组本身，但并不会扁平化数组的数组</p>
+</li>
+<li><p>slice()<br>  返回数组的一段，第一个参数为起始位置，第二个参数为终止位置，若没有第二个的话，则一直到结尾，如果参数为负数的话，相当于再加上length的数为参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line">a.slice(<span class="number">0</span>,<span class="number">3</span>); <span class="comment">// 返回[1,2,3]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>splice()<br>  这个方法比较6，一共可以填多个参数；第一个为删除的起始位置，第二个为删除的个数，后面的为插入其中的元素；返回值为剪切下来的元素组成的数组，会改变原数组</p>
+</li>
+<li>push()和pop(); unshift()和shift()<br>  push()为向数组的后面添加元素，返回数组长度；pop()为在数组后面删除一个元素，返回删除的值；unshift()为在数组前面添加元素，返回数组长度；shift()为在数组前面删除一个元素，并返回删除的值</li>
+<li>toString()<br>  这里的toString()与没有参数的join()结果一样</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/array/" rel="tag"># array</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/24/js4/" rel="next" title="js基础知识（二）">
+                <i class="fa fa-chevron-left"></i> js基础知识（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -334,6 +501,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -354,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -415,6 +595,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#数组介绍"><span class="nav-number">1.</span> <span class="nav-text">数组介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数组的基本操作"><span class="nav-number">2.</span> <span class="nav-text">数组的基本操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -555,6 +751,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

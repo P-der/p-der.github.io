@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[js基础知识（三）]]></title>
+    <url>%2F2018%2F05%2F24%2Fjs5%2F</url>
+    <content type="text"><![CDATA[这篇主要写关于array（没有讲ES5中的一些新方法） 数组介绍数组是值的有序集合。在js中数组的值可以是任何类型。每个值对应的位置成为索引；js数组是js对象的特殊形式，所以有一种说法是，在js中一切皆对象，js中允许的索引为32位 数组的基本操作 数组的创建 数组创建的最简单方法是数组直接量； 12var arr = [];var arr1 = [1,'2',&#123;&#125;,[1,2],false]; 数组的另外一种方法就比较麻烦 123var arr = new Array(); //相当于 var arr = [];var arr = new Array(10); //相当于创建了一个长度为10的空数组var arr = new Array(1,'2',&#123;&#125;,[1,2],false); //这个就相当于 var arr1 = [1,'2',&#123;&#125;,[1,2],false]; 所以我们通常使用数组直接量的方法进行创建，因为简单太多了 数组的基础操作 查找 通过[]中添加索引进行查找 123var arr = [1,2,3];arr[0] // 1arr[1] // 2 添加 添加和改写array中的元素是一样的 123var arr = [1,2,3];arr[3] = 4; //arr为[1,2,3,4];arr[0] = 0; //arr为[0,2,3,4]; 数组的长度 数组的长度就数组中元素的个数 通过 ‘ .’的形式使用，并且可以通过改变数组的长度进行删除和添加数组 123var arr = [0,1,2,3];arr.length = 3; // arr 为 [0,1,2]arr.length = 4; // arr 为 [0, 1, 2, empty] empty是空值的意思 数组方法 join() 该方法可以将数组拼接成字符串，返回值为拼成的字符串，有一个参数，使用该参数进行拼接，如果没有的话，默认为以’,’进行拼接，如果数组中的元素也是数组也会被打开进行拼接，如果是对象的话，会使用Object.prototype.toString(item); 这样的话就会拼成’[object Object]’,如下 123456var arr = [1,2,3];arr.join(); // '1,2,3'arr = [[[1,2],[3,4]],[5,6]];arr.join(); // '1,2,3,4,5,6'arr = [[1,2,3],&#123;name:'pde',age:18&#125;];arr.join() // '1,2,3,[object Object]' reverse() 逆转，改变了原数组，返回值为原数组 sort() 排序，如果没有参数，则进行最简单的排序，按照数字大小和字母表进行排序，注意字符串的比较与数字不同，字符串是由第一位开始比较，如果数组中的元素不是原始值，进行隐式类型转化比较，其中为undefined的元素，会被放到数组的尾部；sort最强大点，在于它的参数，它的参数是一个函数 通过返回值进行排序；返回值为原数组 1234var a = [33,4,1111,222];a.sort(function(a,b)&#123; return a - b; // 返回值为正数，a,b互换位置，ab分别是前一个元素和后一个元素的值，负数不变&#125;); concat() 返回值为一个新数组，新数组的元素包括调用concat的数组和其中的参数，如果其中的参数为数组，连接的是该数组中的元素，并不是数组本身，但并不会扁平化数组的数组 slice() 返回数组的一段，第一个参数为起始位置，第二个参数为终止位置，若没有第二个的话，则一直到结尾，如果参数为负数的话，相当于再加上length的数为参数 12var a = [1,2,3,4,5];a.slice(0,3); // 返回[1,2,3] splice() 这个方法比较6，一共可以填多个参数；第一个为删除的起始位置，第二个为删除的个数，后面的为插入其中的元素；返回值为剪切下来的元素组成的数组，会改变原数组 push()和pop(); unshift()和shift() push()为向数组的后面添加元素，返回数组长度；pop()为在数组后面删除一个元素，返回删除的值；unshift()为在数组前面添加元素，返回数组长度；shift()为在数组前面删除一个元素，并返回删除的值 toString() 这里的toString()与没有参数的join()结果一样]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js基础知识（二）]]></title>
+    <url>%2F2018%2F05%2F24%2Fjs4%2F</url>
+    <content type="text"><![CDATA[这篇先讲一下类型转换的问题 类型转换 显示类型转换 Number(mix) 转化为number String(mix) 转化为string Boolear(all) 转化为boolear parseInt(string,radix) 第二个参数为指定的转换基数（2~36）；如parseInt(‘11’,2)输出为3；在没有第二个参数时，要注意以0x开头的string会使radix默认为16进制，所以希望大家默认都加上第二个参数，防止出现意想不到的bug，并且该函数只解析整数 parseFloat(string) 该函数还可解析浮点数 toString(radix) 只有number类型的toString方法可以接收radix，使得变成相应进制的string，如 var n = 17;var m = n.toString(2);此时m等于’10001’ 隐式类型转换 isNaN() 会把参数进行隐式类型转换 ++/– ,+/-(一元正负) + */% &amp;&amp; || ! &lt; &gt; &lt;= &gt;= == != (该点需注意，如果不希望有隐式类型转换的话，可以使用 === !==)]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js基础知识（一）]]></title>
+    <url>%2F2018%2F05%2F24%2Fjs%2F</url>
+    <content type="text"><![CDATA[在web基础中已经讲过了js的历史，下面来进行进一步的学习 js的三大部分 ECMAScript DOM BOM 如何引入js 页面内嵌标签 外部引入 另外还有在html标签中书写js代码（PS：不推荐）为符合w3c的规范，即结构、样式和行为相分离，所以我们通常采用外部引用，学会了js的引用后我们来学习js的基本语法 js基本语法 变量 变量声明由于js是弱类型语言，所以类型之间可以相互转化，变量的声明非常简单 var a；如此就声明了一个变量a 命名规则 变量名必须以英文字母、_、$开头 变量名可以包括英文字母、_、$、数字 不可以用系统的关键字、保留字作为变量名 值类型（es6中新增的暂且不提） 原始值 number string Boolean undefined null 引用值 array object function 原始值与引用值的区别 原始值属于栈数据，引用值属于堆数据；简单来栈的地址中存储的是值，而堆数据中存储的是地址，这个地址指向的地址中存储了值。 正因为这一点，在引用值a赋值给引用值b时，改变a中或b中的值时，由于此时拷贝给b的是地址中的地址，所以，由于地址中地址中的值改变了，而地址中的地址没有改变，所以a与b共享了这种改变；而改变变量中的原始值其实就是把变量指向的地址改变了，赋值也是把其中真实的值进行copy，也因为上面说的，两个看着相等的引用值变量也很有可能不相等，因为在相等的比较中，比较的是指向地址中的值，而引用值指向的地址中是其他的地址，所以说如果这两个引用值之前没有赋值的关系，那么它们很有可能就不相等 js语句的基本规则 语句后面要用分号结束’;‘(ps:一般会自动补全，但最好按规矩来，有可能自动补全的不是你想的那样) js语法错误会引发后继代码终止，但不影响其他的js代码块 书写格式要规范 （这点可以自己去按自己喜欢的学习一下，或者学习公司的相应规范） js运算符 ‘+’ 数学运算，字符串拼接 任何数据类型和字符串相加都等于字符串，也就是说会发生隐式类型转换，会把其他数据转换成string类型 ‘-‘、’*’、’%’、’=’、’()’ ‘=’的优先级最弱 ‘++’、’–’、’+=’、’/=’、’*=’、’%= 这些都是由基本的运算符简写出来的，如a++ 就是a = a + 1; a += b就是a = a + b;其中++和–有些特别的地方，和c++一样存在a++ 和++a 的问题，这里简单说一下，a++是先用再加，++a是先加再用，如b = a++;此时b = a;b = ++a;此时b = a + 1 比较运算符 ‘&gt;’、’&lt;’、’==’、’&gt;=’、’&lt;=’、’!=’ 比较结果为Boolean，也存在类型转换 逻辑运算符 ‘&amp;&amp;’、’||’、’!’运算结果为真实的值，其中：’&amp;&amp;’是从前向后找，直到找到值为false的值就返回，如果没有返回最后一个值；’||’是从前向后找，直到找到一个为true的值就返回，否则就返回最后一个 会被认为是false的值 undefined null NaN ‘’ 0 false 条件语句 if、 if else if for while、 do while switch case （ps：注意要在每个case中添加break，防止进行下一个case中） break 、 continue 、 return 好了，这篇就先介绍到这里了，拜拜]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[快排学习]]></title>
     <url>%2F2018%2F05%2F21%2Fjs3%2F</url>
     <content type="text"><![CDATA[前段时间逛掘金的时候，看到了掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序 快速排序介绍算法导论上是这样写的 对一个典型子数组A[p..r]排序的分治过程的三个步骤： 分解 数组A[p..r]被划分成两个（可能空）子数组A[p..q-1]和A[q+1..r]，使得A[p..q-1]中的每个元素都小于等于A(q)，而且，小于等于A[q+1..r]中的元素。小标q也在这个划分过程中进行计算。 解决 通过递归调用快速排序，对子数组A[p..q-1]和A[q+1..r]排序。 合并 因为两个子数组是就地排序的，将它们的合并不需要操作：整个数组A[p..r]已排序。 下面的过程实现快速排序： 12345QUICKSORT(A,p,r) if&lt;r then q &lt;-- PARTITION(A,p,r) QUICKSORT(A,p,q-1) QUICKSORT(A,q+1,r) 为排序一个完整的数组A，最初的调用是QUICKSORT(A,1,length[A])。 数组划分快速排序算法的关键是PARTITION过程，它对子数组A[p..r]进行就地重排： 123456789PARTITION(A,p,r) x &lt;-- A[r] i &lt;-- p-1 for j &lt;-- p to r-1 do if A[j]&lt;=x then i &lt;-- i+1 exchange A[i]&lt;--&gt;A[j] exchange A[i+1]&lt;--&gt;A[r] return i+1 图解 JavaScript代码实现function quicksort(arr,l,r){ if(l&lt;r){ var q = partition(arr,l,r); quicksort(arr,l,q-1); quicksort(arr,q+1,r); } } function partition(arr,l,r){ var x = arr[r]; var i = l-1; for(var j = l;j&lt;r;j++){ if(arr[j]&lt;=x){ i++; var temp = arr[j]; arr[j] = arr[i]; arr[i] = temp; } } arr[r] = arr[i+1]; arr[i+1] = x; return i+1; } 以上就是快排的基本实现，仿照算法导论进行的编写，嘿嘿嘿]]></content>

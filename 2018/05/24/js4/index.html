@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="web,js," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="P_der的博客">
-<meta property="og:url" content="http://yoursite.com/categories/test/index.html">
+<meta name="description" content="这篇先讲一下类型转换的问题">
+<meta name="keywords" content="web,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js基础知识（二）">
+<meta property="og:url" content="http://yoursite.com/2018/05/24/js4/index.html">
 <meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="这篇先讲一下类型转换的问题">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-24T08:47:28.872Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="P_der的博客">
+<meta name="twitter:title" content="js基础知识（二）">
+<meta name="twitter:description" content="这篇先讲一下类型转换的问题">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/test/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/24/js4/"/>
 
 
 
 
 
-  <title>分类: test | P_der的博客</title>
+  <title>js基础知识（二） | P_der的博客</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -278,55 +283,196 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>test<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/js4/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="p_der">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="P_der的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/04/09/test/" itemprop="url">
-              
-                <span itemprop="name">test</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">js基础知识（二）</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-09T10:11:45+08:00"
-              content="2018-04-09" >
-          04-09
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T10:42:06+08:00">
+                2018-05-24
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇先讲一下类型转换的问题<br><a id="more"></a></p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li>显示类型转换<ul>
+<li>Number(mix) 转化为number</li>
+<li>String(mix) 转化为string</li>
+<li>Boolear(all) 转化为boolear</li>
+<li>parseInt(string,radix)<br>  第二个参数为指定的转换基数（2~36）；如parseInt(‘11’,2)输出为3；在没有第二个参数时，要注意以0x开头的string会使radix默认为16进制，所以希望大家默认都加上第二个参数，防止出现意想不到的bug，并且该函数只解析整数</li>
+<li>parseFloat(string)<br>  该函数还可解析浮点数</li>
+<li>toString(radix)<br>  只有number类型的toString方法可以接收radix，使得变成相应进制的string，如 var n = 17;var m = n.toString(2);此时m等于’10001’</li>
+</ul>
+</li>
+<li>隐式类型转换<ul>
+<li>isNaN()<br>  会把参数进行隐式类型转换</li>
+<li>++/– ,+/-(一元正负)</li>
+<li>+</li>
+<li>*/%</li>
+<li>&amp;&amp; || !</li>
+<li>&lt; &gt; &lt;= &gt;=</li>
+<li>== != (该点需注意，如果不希望有隐式类型转换的话，可以使用 === !==)</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/24/js/" rel="next" title="js基础知识（一）">
+                <i class="fa fa-chevron-left"></i> js基础知识（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/24/js5/" rel="prev" title="js基础知识（三）">
+                js基础知识（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -334,6 +480,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -354,8 +504,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -415,6 +574,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转换"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -555,6 +730,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

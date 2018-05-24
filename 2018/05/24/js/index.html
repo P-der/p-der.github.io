@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="web,js," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="P_der的博客">
-<meta property="og:url" content="http://yoursite.com/categories/test/index.html">
+<meta name="description" content="在web基础中已经讲过了js的历史，下面来进行进一步的学习  js的三大部分  ECMAScript DOM BOM">
+<meta name="keywords" content="web,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js基础知识（一）">
+<meta property="og:url" content="http://yoursite.com/2018/05/24/js/index.html">
 <meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="在web基础中已经讲过了js的历史，下面来进行进一步的学习  js的三大部分  ECMAScript DOM BOM">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-24T08:28:34.162Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="P_der的博客">
+<meta name="twitter:title" content="js基础知识（一）">
+<meta name="twitter:description" content="在web基础中已经讲过了js的历史，下面来进行进一步的学习  js的三大部分  ECMAScript DOM BOM">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/test/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/24/js/"/>
 
 
 
 
 
-  <title>分类: test | P_der的博客</title>
+  <title>js基础知识（一） | P_der的博客</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -278,55 +283,245 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>test<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/js/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="p_der">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="P_der的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/04/09/test/" itemprop="url">
-              
-                <span itemprop="name">test</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">js基础知识（一）</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-09T10:11:45+08:00"
-              content="2018-04-09" >
-          04-09
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T08:36:50+08:00">
+                2018-05-24
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>在web基础中已经讲过了js的历史，下面来进行进一步的学习</p>
+</blockquote>
+<p>js的三大部分</p>
+<ul>
+<li>ECMAScript</li>
+<li>DOM</li>
+<li>BOM</li>
+</ul>
+<a id="more"></a>
+<h3 id="如何引入js"><a href="#如何引入js" class="headerlink" title="如何引入js"></a>如何引入js</h3><ol>
+<li>页面内嵌<script></script>标签</li>
+<li>外部引入<script src="***"></script></li>
+<li>另外还有在html标签中书写js代码（PS：不推荐）<br>为符合w3c的规范，即结构、样式和行为相分离，所以我们通常采用外部引用，学会了js的引用后我们来学习js的基本语法</li>
+</ol>
+<h3 id="js基本语法"><a href="#js基本语法" class="headerlink" title="js基本语法"></a>js基本语法</h3><ul>
+<li>变量<ul>
+<li>变量声明<br>由于js是弱类型语言，所以类型之间可以相互转化，变量的声明非常简单 var a；如此就声明了一个变量a</li>
+<li>命名规则<ol>
+<li>变量名必须以英文字母、_、$开头</li>
+<li>变量名可以包括英文字母、_、$、数字</li>
+<li>不可以用系统的关键字、保留字作为变量名</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>值类型（es6中新增的暂且不提）        <ul>
+<li>原始值<br>  number string Boolean undefined null </li>
+<li>引用值<br>  array object function </li>
+<li>原始值与引用值的区别<br>  原始值属于栈数据，引用值属于堆数据；简单来栈的地址中存储的是值，而堆数据中存储的是地址，这个地址指向的地址中存储了值。<br>  正因为这一点，在引用值a赋值给引用值b时，改变a中或b中的值时，由于此时拷贝给b的是地址中的地址，所以，由于地址中地址中的值改变了，而地址中的地址没有改变，所以a与b共享了这种改变；而改变变量中的原始值其实就是把变量指向的地址改变了，赋值也是把其中真实的值进行copy，也因为上面说的，两个看着相等的引用值变量也很有可能不相等，因为在相等的比较中，比较的是指向地址中的值，而引用值指向的地址中是其他的地址，所以说如果这两个引用值之前没有赋值的关系，那么它们很有可能就不相等</li>
+</ul>
+</li>
+<li>js语句的基本规则<ul>
+<li>语句后面要用分号结束’;‘(ps:一般会自动补全，但最好按规矩来，有可能自动补全的不是你想的那样)</li>
+<li>js语法错误会引发后继代码终止，但不影响其他的js代码块</li>
+<li>书写格式要规范 （这点可以自己去按自己喜欢的学习一下，或者学习公司的相应规范）</li>
+</ul>
+</li>
+<li>js运算符<ul>
+<li>‘+’<ol>
+<li>数学运算，字符串拼接</li>
+<li>任何数据类型和字符串相加都等于字符串，也就是说会发生隐式类型转换，会把其他数据转换成string类型</li>
+</ol>
+</li>
+<li>‘-‘、’*’、’%’、’=’、’()’ </li>
+<li>‘=’的优先级最弱</li>
+<li>‘++’、’–’、’+=’、’/=’、’*=’、’%=<br>  这些都是由基本的运算符简写出来的，如a++ 就是a = a + 1; a += b就是a = a + b;其中++和–有些特别的地方，和c++一样存在a++ 和++a 的问题，这里简单说一下，a++是先用再加，++a是先加再用，如b = a++;此时b = a;b = ++a;此时b = a + 1    </li>
+<li>比较运算符<ul>
+<li>‘&gt;’、’&lt;’、’==’、’&gt;=’、’&lt;=’、’!=’<br>  比较结果为Boolean，也存在类型转换</li>
+</ul>
+</li>
+<li>逻辑运算符<ul>
+<li>‘&amp;&amp;’、’||’、’!’<br>运算结果为真实的值，其中：’&amp;&amp;’是从前向后找，直到找到值为false的值就返回，如果没有返回最后一个值；’||’是从前向后找，直到找到一个为true的值就返回，否则就返回最后一个        </li>
+</ul>
+</li>
+<li>会被认为是false的值<ul>
+<li>undefined null NaN ‘’ 0 false</li>
+</ul>
+</li>
+<li>条件语句<ul>
+<li>if、 if else if</li>
+<li>for</li>
+<li>while、 do while</li>
+<li>switch case  （ps：注意要在每个case中添加break，防止进行下一个case中）</li>
+<li>break 、 continue 、 return</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>好了，这篇就先介绍到这里了，拜拜</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/21/js3/" rel="next" title="快排学习">
+                <i class="fa fa-chevron-left"></i> 快排学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/24/js4/" rel="prev" title="js基础知识（二）">
+                js基础知识（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -334,6 +529,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -354,8 +553,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -415,6 +623,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何引入js"><span class="nav-number">1.</span> <span class="nav-text">如何引入js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js基本语法"><span class="nav-number">2.</span> <span class="nav-text">js基本语法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -555,6 +779,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
