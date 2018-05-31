@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[js9]]></title>
+    <url>%2F2018%2F05%2F28%2Fjs9%2F</url>
+    <content type="text"><![CDATA[这篇主要关于dom的一些基本知识 什么是dom 是Document Object Model的缩写，即文档对象模型。dom定义了表示和修改文档所需的对象、这些对象的行为和属性、这些对象之间的关系。是对html以及xml的标准编程接口]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>dom</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[客户端JavaScript时间线]]></title>
+    <url>%2F2018%2F05%2F28%2Fjs8%2F</url>
+    <content type="text"><![CDATA[复习一下权威指南上的东西 JavaScript程序执行的时间线 web浏览器创建document对象，并且开始解析web页面，解析html元素和它们的文本内容后添加element对象和text节点到文档中。在这个阶段document.readyState属性的值时’loading’ 当html解析器遇到没有async和defer属性的script元素时，它把这些元素添加到文档中，然后执行行内或外部脚本。这些脚本会同步执行，并且在脚本下载（如果需要）和执行时解析器会暂停。这样脚本就可以用document.write()来把文本插入到输入流中。解析器恢复时这些文本会成为文档的一部分。同步脚本经常简单定义函数和注册后面使用的注册事件处理程序，但它们可以遍历和操作文档树，因为，在它们执行时已经存在了。这样，同步脚本可以看到它自己的script元素和它们之前的文档内容 当解析器遇到设置了async和defer属性的script元素时，它开始下载脚本文本，并继续解析文档。脚本会在它下载完成后尽快执行，但是解析器没有停下来等它下载。异步脚本禁止使用document.write()方法。它们可以看到自己的script元素和它之前的所有文档元素，并且可能或干脆不可能访问其他的文档内容 当文档完成解析，document.readyState属性变成’interactive’ 所有defer属性的脚本，会按它们在文档的里的出现顺序执行。异步脚本可能也会在这个时间执行。延迟脚本能访问完整的文档树，禁止使用document.write()方法 浏览器在document对象上触发DOMContentLoaded事件。这标志着程序执行从同步脚本执行阶段转换到了异步事件驱动阶段。但要注意，这时可能还有异步脚本没有执行完成 这时，文档已经完全解析完成，但是浏览器可能还在等待其他内容载入，如图片。当所有这些内容完成加载时，并且所有异步脚本完成载入和执行，document.readyState属性改变为’complete’，web浏览器触发window对象上的load事件 从此刻起，会调用异步事件，以异步响应用户输入事件、网络事件、计时器过期等]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>时间线</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[js基础知识（五）]]></title>
     <url>%2F2018%2F05%2F27%2Fjs7%2F</url>
     <content type="text"><![CDATA[该篇主要介绍函数的相关内容 在JavaScript中，函数也是一种对象，针对对象的操作方法也可以对函数使用 函数的定义1234567891011function fn(a,b)&#123; // 函数声明 fn不可以省略 /* ... */&#125;var foo = function fn(a,b)&#123; // 函数定义表达式 其中fn可以省略 /* ...*/&#125;(function()&#123; // 立即执行函数 /* ... */&#125;)() 函数的调用 作为函数的调用 fn() 作为方法 obj.fn() 作为构造函数 通过call()和apply()间接调用主要来看一下构造函数的这种调用方法 构造函数123456function Fn()&#123; this.age = 20; this.color = 'blue'; /*...*/&#125;var a = new Fn(); 上面就是构造函数的定义与使用方法，通过new进行调用，这点是js语言仿照类一样，通过new创造了Fn的实例，本质上如下进行实现的 1234567function Fn()&#123; var this = &#123;&#125;; //其实并不是完全的空对象 this.age = 20; this.color = 'blue'; /* ... */ return this;&#125; 如上所示实际上是在内部进行隐式的创建了一个this变量，通过里面的代码，构建完对象后把他返回，注意构造函数中如果有返回的话，返回值为对象，那么不会返回this，而是返回对象，如果返回的不是对象的话，还是返回this 间接调用通过call和apply来进行调用，call和apply的区别是传参列表不同，call是一个一个参数传，apply是以数组的形式进行传参 12fn.call(this,a,b,c);fn.apply(this,[a,b,c]); 闭包 在这里是由于js语言的函数作用域产生的，主要表现在通过return的方式使得在函数内部的变量可以在外部进行使用，但是闭包的产生会造成内存泄露，下面来看一个比较常见的问题 12345678910111213function test()&#123; var arr = []; for(var i = 0; i &lt; 10; i++) &#123; arr[i] = function ()&#123; console.log(i); &#125; &#125; return arr;&#125;var myArr = test();for(var j = 0; j &lt; 10;j++) &#123; myArr[j](); //会打印出10个10&#125; 以上的问题就是由于闭包产生的，因为myArr中每一个函数中的i对应的都是test中的i，这就使得在arr中的函数被调用的时候，从test中临时取i，而i经过for循环已经变成了10，所以最后打印出来的都是10,这个问题的解决如果用ES6的话，可以直接把函数中的for循环中的var变成let，这样的话就可以完美解决，但是基础的话还可以用立即执行函数来解决 123456789101112131415function test()&#123; var arr = []; for(var i = 0;i &lt; 10;i++)&#123; (function(j)&#123; arr[j] = function()&#123; console.log(j); &#125; &#125;)(i) &#125; return arr;&#125;var myArr = test();for(var j = 0;j &lt; 10;j++)&#123; myArr[j])()&#125; 常用的属性方法等 length属性（这里指的是arguments.length，arguments是函数体中的参数列表，是类数组） prototype（原型，以后会细说这个属性） call()和apply() bind()（该方法是ES5中的方法，用于改变函数中的this指向问题） toString()]]></content>
