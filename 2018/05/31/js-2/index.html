@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="web,js,dom," />
+  <meta name="keywords" content="web,js,function," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="这篇主要关于dom的一些基本知识">
-<meta name="keywords" content="web,js,dom">
+<meta name="description" content="今天来学习学习原型的知识">
+<meta name="keywords" content="web,js,function">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js9">
-<meta property="og:url" content="http://yoursite.com/2018/05/28/js9/index.html">
+<meta property="og:title" content="原型">
+<meta property="og:url" content="http://yoursite.com/2018/05/31/js-2/index.html">
 <meta property="og:site_name" content="P_der的博客">
-<meta property="og:description" content="这篇主要关于dom的一些基本知识">
+<meta property="og:description" content="今天来学习学习原型的知识">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-28T07:07:25.011Z">
+<meta property="og:updated_time" content="2018-05-31T14:31:08.114Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js9">
-<meta name="twitter:description" content="这篇主要关于dom的一些基本知识">
+<meta name="twitter:title" content="原型">
+<meta name="twitter:description" content="今天来学习学习原型的知识">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/28/js9/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/31/js-2/"/>
 
 
 
 
 
-  <title>js9 | P_der的博客</title>
+  <title>原型 | P_der的博客</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/js9/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/31/js-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="p_der">
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">js9</h1>
+          <h1 class="post-title" itemprop="name headline">原型</h1>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T15:00:06+08:00">
-                2018-05-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-31T16:10:52+08:00">
+                2018-05-31
               </time>
             
 
@@ -386,10 +386,33 @@
       
 
       
-        <p>这篇主要关于dom的一些基本知识</p>
+        <p>今天来学习学习原型的知识</p>
 <a id="more"></a>
-<h5 id="什么是dom"><a href="#什么是dom" class="headerlink" title="什么是dom"></a>什么是dom</h5><ul>
-<li>是Document Object Model的缩写，即文档对象模型。dom定义了表示和修改文档所需的对象、这些对象的行为和属性、这些对象之间的关系。是对html以及xml的标准编程接口</li>
+<ul>
+<li><p>定义：原型是function对象的一个属性，它定义了构造函数制造出的对象的公共祖先。通过该构造函数产生的对象，可以继承该原型的属性和方法。原型也是对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.lastName = <span class="string">'father'</span>;<span class="comment">// prototype原型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'person'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person();<span class="comment">//person = &#123;name:'person'&#125;</span></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();<span class="comment">//person = &#123;name:'person'&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(person.lastName)<span class="comment">// 'father'</span></span><br><span class="line"><span class="built_in">console</span>.log(person1.lastName)<span class="comment">// 'father'   person 和 person1 公用lastName</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构造函数的内部实现</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// var this = &#123;</span></span><br><span class="line">        __proto__:Person.prototype</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">/*...*/</span></span><br><span class="line">    <span class="comment">// return this;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>constructor<br>  查询构造器的属性Person.prototype.constructor为Person 所以在调用person.consturctor的时候会返回Person，可以new一下这个属性执行，构造出于person相似的对象</li>
+</ul>
+</li>
+<li>原型链<br>  当函数使用属性或者方法的时候，会首先从自己的属性和方法中寻找，如果有的话，就执行，如果没有的话，会沿着<strong>proto</strong>属性进行查找，并一直重复这项操作，直到找到，或者查到最顶级（就是Object构造函数的原型，即Object.prototype，它的<strong>proto</strong>为null），返回undefined</li>
+<li><p>call/apply<br>  作用：改变this指向<br>  区别：传参方式不同</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fn.call(<span class="keyword">this</span>,name,age,sex);</span><br><span class="line">fn.apply(<span class="keyword">this</span>,[name,age,sex]);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>继承发展史</p>
+<ul>
+<li>传统形式 —&gt;原型链 效率低</li>
+<li>借用构造函数  每次调用多执行一次构造函数</li>
+<li>共享原型      如果改变原型的话会改变共享这个原型的所有构造函数    </li>
+<li>圣杯模式      比较完美的解决了共享原型的缺点<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 圣杯模式</span></span><br><span class="line"><span class="comment">//第一种写法</span></span><br><span class="line"><span class="keyword">var</span> inherit = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">Origin, Target</span>)</span>&#123;</span><br><span class="line">        F.prototype = Origin.prototype;</span><br><span class="line">        Target.prototype = <span class="keyword">new</span> F();</span><br><span class="line">        Target.prototype.constructor = Target;</span><br><span class="line">        Target.prototype.uber = Origin.prototype;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"><span class="comment">//第二种写法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherit</span>(<span class="params">Origin, Target</span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">    F.prototype = Origin.prototype;</span><br><span class="line">    Target.prototype = <span class="keyword">new</span> F();</span><br><span class="line">    Target.prototype.constructor = Target;</span><br><span class="line">    Target.prototye.uber = Origin.prototype;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>命名空间<br>  管理变量，防止污染全局，适用于模块化开发（感觉现在也不怎么用了，有webpack等打包工具，还有ES6新语法，闭包等方法）</p>
+</li>
 </ul>
 
       
@@ -412,7 +435,7 @@
           
             <a href="/tags/js/" rel="tag"># js</a>
           
-            <a href="/tags/dom/" rel="tag"># dom</a>
+            <a href="/tags/function/" rel="tag"># function</a>
           
         </div>
       
@@ -425,8 +448,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/28/js8/" rel="next" title="客户端JavaScript时间线">
-                <i class="fa fa-chevron-left"></i> 客户端JavaScript时间线
+              <a href="/2018/05/31/js-1/" rel="next" title="闭包">
+                <i class="fa fa-chevron-left"></i> 闭包
               </a>
             
           </div>
@@ -435,8 +458,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/31/js-1/" rel="prev" title="闭包">
-                闭包 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/31/js-3/" rel="prev" title="克隆">
+                克隆 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -489,17 +512,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -559,22 +573,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是dom"><span class="nav-number">1.</span> <span class="nav-text">什么是dom</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[数组去重]]></title>
+    <url>%2F2018%2F05%2F31%2Fexercise-1%2F</url>
+    <content type="text"><![CDATA[数组去重练习在原型链上进行编程123456789101112Array.prototype.unique = function()&#123; var obj = &#123;&#125;; var arr = []; var len = this.length; for(var i = 0; i &lt; len; i++)&#123; if(!obj[this[i]])&#123; obj[this[i]]=true; arr.push(this[i]); &#125; &#125; return arr;&#125;]]></content>
+      <categories>
+        <category>练习</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>exercise</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[简单判断类型]]></title>
+    <url>%2F2018%2F05%2F31%2Fexercise%2F</url>
+    <content type="text"><![CDATA[简单判断传入值的类型可以简单判断出来numbe string boolean function undefined object array null12345678910111213141516171819202122232425function type(target)&#123; var strTemple = typeof(target); var toStr = Object.prototype.toString; if(strTemple == 'object')&#123; switch(toStr.call(target))&#123; case '[object Array]': return 'array'; case '[object Object]': return 'object'; case '[object Number]': return 'object-number'; case '[object String]': return 'object-string'; case '[object Boolean]': return 'object-boolean'; case '[object Null]': return 'null'; &#125; if(target===null)&#123; //兼容老版本，新版本可以通过之前的switch中case返回 return null &#125; &#125;else&#123; return strTemple; &#125;&#125;]]></content>
+      <categories>
+        <category>练习</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>exercise</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[克隆]]></title>
+    <url>%2F2018%2F05%2F31%2Fjs-3%2F</url>
+    <content type="text"><![CDATA[对象的克隆学习 浅层克隆 1234567function clone(origin, target)&#123; for(var prop in origin)&#123; if(origin.hasOwnProperty(prop))&#123; target[prop] = origin[prop]; &#125; &#125;&#125; 存在的问题：当克隆的元素为引用值的时候，由于origin和target中的元素指向同一个地址，所以当其中一个改变了元素中的值的时候，另一个也发生了改变，于是我们来学习深度克隆 深层克隆 首先判断引用值可以用typeof()，然后为了区别对象和数组，可以使用以下的方法： Object.prototype.toString constructor instanceof 1234567891011121314function clone(origin,target)&#123; var toStr = Object.prototype.toString, compare = '[object Array]'; for(var prop in origin)&#123; if(origin.hasOwnProperty(prop))&#123; if(typeof(origin[prop])=='object')&#123; target[prop]=(toStr.call(origin[prop])==compare)?[]:&#123;&#125;; clone(origin[prop],target[prop]) &#125;else&#123; target[prop] = origin[prop]; &#125; &#125; &#125;&#125; 通过以上的代码，就可以解决浅层克隆的问题]]></content>
+      <categories>
+        <category>练习</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>exercise</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[原型]]></title>
+    <url>%2F2018%2F05%2F31%2Fjs-2%2F</url>
+    <content type="text"><![CDATA[今天来学习学习原型的知识 定义：原型是function对象的一个属性，它定义了构造函数制造出的对象的公共祖先。通过该构造函数产生的对象，可以继承该原型的属性和方法。原型也是对象 12345678Person.prototype.lastName = 'father';// prototype原型function Person()&#123; this.name = 'person'&#125;var person = new Person();//person = &#123;name:'person'&#125;var person1 = new Person();//person = &#123;name:'person'&#125;console.log(person.lastName)// 'father'console.log(person1.lastName)// 'father' person 和 person1 公用lastName 构造函数的内部实现 12345678function Person()&#123; // var this = &#123; __proto__:Person.prototype &#125;; /*...*/ // return this;&#125;var person = new Person(); constructor 查询构造器的属性Person.prototype.constructor为Person 所以在调用person.consturctor的时候会返回Person，可以new一下这个属性执行，构造出于person相似的对象 原型链 当函数使用属性或者方法的时候，会首先从自己的属性和方法中寻找，如果有的话，就执行，如果没有的话，会沿着proto属性进行查找，并一直重复这项操作，直到找到，或者查到最顶级（就是Object构造函数的原型，即Object.prototype，它的proto为null），返回undefined call/apply 作用：改变this指向 区别：传参方式不同 12fn.call(this,name,age,sex);fn.apply(this,[name,age,sex]); 继承发展史 传统形式 —&gt;原型链 效率低 借用构造函数 每次调用多执行一次构造函数 共享原型 如果改变原型的话会改变共享这个原型的所有构造函数 圣杯模式 比较完美的解决了共享原型的缺点12345678910111213141516171819// 圣杯模式//第一种写法var inherit = (function()&#123; var F = function()&#123;&#125;; return function(Origin, Target)&#123; F.prototype = Origin.prototype; Target.prototype = new F(); Target.prototype.constructor = Target; Target.prototype.uber = Origin.prototype; &#125;&#125;)()//第二种写法function inherit(Origin, Target)&#123; function F()&#123;&#125;; F.prototype = Origin.prototype; Target.prototype = new F(); Target.prototype.constructor = Target; Target.prototye.uber = Origin.prototype;&#125; 命名空间 管理变量，防止污染全局，适用于模块化开发（感觉现在也不怎么用了，有webpack等打包工具，还有ES6新语法，闭包等方法）]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>function</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[闭包]]></title>
+    <url>%2F2018%2F05%2F31%2Fjs-1%2F</url>
+    <content type="text"><![CDATA[在学习闭包前，我们需要一些知识，这些知识会方便我们学习闭包 js运行三部曲 语法分析（自己写错了代码等） 预编译（重点） 解释执行 预编译 预编译前奏 暗示全局变量：如果变量未经声明就赋值，此变量为全局对象所有（严格模式报错），需要注意的是 var a = b = 123;这种样子的，其中变量b并没有被声明，所以b也是全局对象所有的 一切声明的全局变量都是window的属性，window上的属性在使用时，不需要写window； 预编译四部曲 创建AO对象（执行期上下文） 找函数里面的形参和变量声明，并变成AO的属性名，值为undefined 实参与形参统一 找到函数声明，变成AO的属性名，并把函数体当做值赋给它 执行的时候就变量声明和函数定义等，已经完成了提升，这是声明语句就会被忽略掉，进而去执行语句，这时就是解释执行阶段 作用域 运行期上下文：当函数执行时，会创建一个称谓执行期上下文的内部对象。一个执行期上下文定义了一个函数执行时的环境，函数每次执行时的执行上下文都是独一无二的，所以多次电泳一个函数会导致创建多个执行上下文，函数每次执行时都会把新生成的执行期上下文，填充到作用域链的最顶端，当函数执行完毕，它产生的执行上下文被销毁 123456789101112131415161718192021222324252627282930//egfunction a()&#123; function b()&#123; var b = 234; &#125; var a = 123; b();&#125;var glob = 100;a();/*函数创建的时候，继承当前所在的作用链，执行的时候，把预编译产生的activation object对象放到执行期上下文的顶部1. 当a创建时 a.[[scope]] --&gt; scope chain 0 --&gt; global object &#123;this:window,window:&#123;&#125;,document:&#123;&#125;,a:fn,glob:100&#125;2. 当a函数执行的时候a.[[scope]] --&gt;scope chain 0 --&gt; activation object &#123;this: window,arguments:[],a:123,b:fn&#125; 1 --&gt; global object &#123;this:window,window:&#123;&#125;,document:&#123;&#125;,a:fn,glob:100&#125; 3. 当b创建时，b会继承a的作用域链b.[[scope]] --&gt;scope chain 0 --&gt; activation object &#123;this: window,arguments:[],a:123,b:fn&#125; 1 --&gt; global object &#123;this:window,window:&#123;&#125;,document:&#123;&#125;,a:fn,glob:100&#125; 4. 当b函数执行的时候b.[[scope]] --&gt;scope chain 0 --&gt; activation object &#123;this:window,argument:[],b:234&#125; 1 --&gt; activation object &#123;this: window,arguments:[],a:123,b:fn&#125; 2 --&gt; global object &#123;this:window,window:&#123;&#125;,document:&#123;&#125;,a:fn,glob:100&#125; */ 闭包闭包就是源于上面作用域产生的，例如上面例子中的b函数不执行，而是直接返回，这样的话，首先a函数执行结束，掐断自己的作用域链指向，而在返回的b中，仍然还保存a的activation object ，此时就产生了闭包，闭包造成了内存泄露，但是却产生了一些非常好的特性，1.实现共有变量2.可以做缓存3.可以实现封装，属性私有化4.模块化开发，防止污染全局变量]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>function</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[js9]]></title>
     <url>%2F2018%2F05%2F28%2Fjs9%2F</url>
     <content type="text"><![CDATA[这篇主要关于dom的一些基本知识 什么是dom 是Document Object Model的缩写，即文档对象模型。dom定义了表示和修改文档所需的对象、这些对象的行为和属性、这些对象之间的关系。是对html以及xml的标准编程接口]]></content>
@@ -36,7 +101,7 @@
       <tags>
         <tag>web</tag>
         <tag>js</tag>
-        <tag>funciton</tag>
+        <tag>function</tag>
       </tags>
   </entry>
   <entry>
