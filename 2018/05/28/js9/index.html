@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="这篇主要关于dom的一些基本知识">
+<meta name="description" content="这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法">
 <meta name="keywords" content="web,js,dom">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js9">
+<meta property="og:title" content="dom基础">
 <meta property="og:url" content="http://yoursite.com/2018/05/28/js9/index.html">
 <meta property="og:site_name" content="P_der的博客">
-<meta property="og:description" content="这篇主要关于dom的一些基本知识">
+<meta property="og:description" content="这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-28T07:07:25.011Z">
+<meta property="og:updated_time" content="2018-06-01T14:22:44.850Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js9">
-<meta name="twitter:description" content="这篇主要关于dom的一些基本知识">
+<meta name="twitter:title" content="dom基础">
+<meta name="twitter:description" content="这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>js9 | P_der的博客</title>
+  <title>dom基础 | P_der的博客</title>
   
 
 
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">js9</h1>
+          <h1 class="post-title" itemprop="name headline">dom基础</h1>
         
 
         <div class="post-meta">
@@ -386,10 +386,116 @@
       
 
       
-        <p>这篇主要关于dom的一些基本知识</p>
+        <p>这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法</p>
 <a id="more"></a>
 <h5 id="什么是dom"><a href="#什么是dom" class="headerlink" title="什么是dom"></a>什么是dom</h5><ul>
 <li>是Document Object Model的缩写，即文档对象模型。dom定义了表示和修改文档所需的对象、这些对象的行为和属性、这些对象之间的关系。是对html以及xml的标准编程接口</li>
+</ul>
+<ul>
+<li>节点<ul>
+<li>节点有四个属性<ol>
+<li>nodeName 元素的标签名，以大写形式表示只读</li>
+<li>nodeValue text节点或comment节点的文本内容，可读写</li>
+<li>nodeType 该节点的类型，只读</li>
+<li>attributes 节点的属性机顶盒</li>
+</ol>
+</li>
+<li>节点的类型<ol>
+<li>元素节点             1</li>
+<li>属性节点             2</li>
+<li>文本节点             3</li>
+<li>注释节点             8</li>
+<li>document             9 </li>
+<li>DocumentFragment     11<ul>
+<li>后面的数字是节点的 nodeType的值，通过这个值可以判断出节点的类型</li>
+<li>节点的基本操作</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>遍历节点树<br>  1.parentNode 2.childNodes 3.firstChild 4.lastChild 5.nextSibing 6.previousSibing</li>
+<li>增加节点<br>  1.docuemnt.createElement() 2.document.createTextNode() 3.document.createComment() 4.document.createDocumentFragment()</li>
+<li>插入节点<br>  1.parentnode.appendChild() 2.parentnode.insertBefore(a,b) a插到b前</li>
+<li>删除节点<br>  parent.removeChild()</li>
+<li>替换<br>  parent.replaceChild(new,origin)</li>
+</ul>
+</li>
+<li>元素节点<br>  元素节点比较特殊，是我们主要操作的对象，它有一些其他节点没有的方法<ul>
+<li>查看元素节点<ul>
+<li>document代表整个文档</li>
+<li>document.getElementById()  查找相应Id的元素，在IE8以下的浏览器不区分id大小写，而且也返回匹配name属性的元素</li>
+<li>.getElementsByTageName() 按标签名匹配</li>
+<li>.getElementsByName() 只有部分标签name可以匹配</li>
+<li>.getElementsByClassName() 按类名匹配，ie8和ie8以下的ie中没有，可以同时多个class一起匹配</li>
+<li>.querySelector()  css选择器，ie7和ie7之前没有，非实时，选出匹配的第一个元素</li>
+<li>.querySelectorAll() css选择器，ie7和ie7之前没有，非实时，选出匹配的所有元素</li>
+</ul>
+</li>
+<li>遍历元素节点<br>  1.parentElement（ie不兼容） 2.children 3.node.childElementCount === node.children.length 子节点个数（ie不兼容） 4.firstElementChild 返回第一个子元素节点（ie不兼容） 5.lastElementChild 返回最后一个子元素节点（ie不兼容） 6.nextElementSibing/previousElementSibing（ie不兼容）</li>
+<li>元素节点的一些属性<ul>
+<li>innerHTML </li>
+<li>innerText(火狐不兼容)/textContent(老版本ie不兼容)</li>
+</ul>
+</li>
+<li>元素节点的一些方法<ul>
+<li>.setAttribute()</li>
+<li>.getAttribute()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>dom元素节点上的一些属性<ul>
+<li>查看元素的尺寸 dom.offsetWidth,dom.offsetHeight</li>
+<li>查看元素的位置 dom.offsetLeft,dom.offsetTop 对于没有定位父级的元素，返回相对文档的坐标；对于有定位的父级元素，返回相对于最近的有定位的父级的坐标 dom.offsetParent 返回最近的有定位的父级</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>window上面的一些方法</p>
+<ul>
+<li>定时器（这个是window的方法）<ul>
+<li>创建定时器<ul>
+<li>var timer = setInterval() 指定时间重复执行</li>
+<li>var timer = setTimerout() 指定时间执行一次</li>
+</ul>
+</li>
+<li>删除定时器<ul>
+<li>clearInterval(timer)</li>
+<li>clearTimerout(timer)</li>
+</ul>
+</li>
+<li>timer 的作用是为了删除的时候确定定时器</li>
+</ul>
+</li>
+<li><p>查看滚动条的距离</p>
+<ul>
+<li>window.pageXOffset/pageYOffset(ie8和ie8以下不兼容)</li>
+<li>document.body/documentElement.scrollLeft/scrollTop 兼容性比较混乱，用的时候可以取两个值相加，因为这两个不同时有值，为了兼容封装兼容性的写法，代码如下<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getScrollOffset</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.pageXOffset)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            x:<span class="built_in">window</span>.pageXOffset,</span><br><span class="line">            y:<span class="built_in">window</span>.pageYOffset</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            x:<span class="built_in">document</span>.body.scrollLeft+<span class="built_in">document</span>.documentElement.scrollLeft,</span><br><span class="line">            y:<span class="built_in">document</span>.body.scrollTop+<span class="built_in">document</span>.documentElement.scrollTop</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>查看视口的尺寸</p>
+<ul>
+<li>window.innerWidth/innerHeight (ie8及ie8以下不兼容)</li>
+<li>document.documentElement.clientWidth/clientHeight (标准模式下，任意浏览器都兼容)</li>
+<li>document.body.clientWidth/clientHeight (适用于怪异模式下的浏览器)<br>封装方法如下<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewportOffset</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.innerWidth)&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            width:<span class="built_in">window</span>.innerWidth,</span><br><span class="line">            height:<span class="built_in">window</span>.innerHeight</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">'CSS1Compat'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            width:<span class="built_in">document</span>.documentElement.clientWidth,</span><br><span class="line">            height:<span class="built_in">document</span>.documentElement.clientHeight</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            width:<span class="built_in">document</span>.body.clientWidth,</span><br><span class="line">            height:<span class="built_in">document</span>.body.clientHeight</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>查看元素的几何尺寸</p>
+<ul>
+<li>ele.getBoundingClientRect() 兼容性很好，该方法返回一个对象，对象里面有left,top,right,bottom等属性，其中还有width,height属性，但在老版本ie中不支持，而且，这个返回值并不是实时的</li>
+</ul>
+</li>
+<li>使滚动条滚动的方法<ul>
+<li>scroll(),scrollTo(),scrollBy()</li>
+<li>参数都是xy坐标，其中scrollBy方法是相对原来的位置进行的累加</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
       
