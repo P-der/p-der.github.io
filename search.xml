@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[正则表达式]]></title>
+    <url>%2F2018%2F06%2F03%2Freg%2F</url>
+    <content type="text"><![CDATA[正则表达式基础学习 正则表达式的创建1. var reg = /pattern/; 2. var reg = new RegExp(&apos;pattern&apos;); 字符类 字符 匹配 […] 方括号内的任意字符 [^…] 不在方括号内的任意字符 . 除换行符和其他Unicode行终止符之外的任意字符 \w 任何ASCII字符组成的单词，等价于[a-zA-Z0-9] \W 任何非ASCII字符组成的单词，等价于[^a-zA-Z0-9] \s 任何Unicode空白符 \S 任何非Unicode空白符的字符 \d 任何ASCII数字，等价于[0-9] \D 除了ASCII数字之外的任何字符，等价于[^0-9] [\b] 退格直接量（特例） 重复 字符 含义 {n,m} 匹配前一项至少n次，但不超过m次 {n,} 匹配前一项n次或者更多次 {n} 匹配前一项n次 ? 匹配前一项0次或1次，也就是说前一项是可选的，等价于{0,1} + 匹配前一项1次或多次，等价于{1,} * 匹配前一项0次或多次，等价于{0,} 非贪婪的重复：上面的重复匹配字符是尽可能多的匹配字符，这种成为贪婪的重复，如果需要尽可能少的匹配，这种称为非贪婪的重复，只需要在待匹配的字符后面加一个?即可，有的时候会有一些与期望不同的情况，所以在实际使用的时候注意正则匹配的原理，它是从开头进行匹配的，不会进行跳跃 选择、分组和引用 字符 含义 &#124; 选择，匹配的是该符号左边的子表达式或右边的子表达式 (…) 组合，将集合项合并成一个单元，可用过’*’、’+’、’?’和’&#124;’等符号加以修饰，而且可以记住这个匹配的字符，供后面的引用使用 (?:…) 只组合，与上面的基本相同，唯一的区别是不会记忆匹配的字符，后面无法引用 \n 引用，和前面的(…)一起使用，找和第n和括号匹配的记忆字符，注意查第几个的时候以左括号为基准 指定匹配位置 字符 含义 ^ 匹配字符串开头 $ 匹配字符串结尾 \b 匹配一个单词的边界 \B 匹配非单词边界的位置 (?=p) 零宽正向先行判断，要求接下来的字符都与p匹配，但不能包括匹配p的那些字符（匹配结果不包括p） (?!p) 零宽负向先行判断，要求接下来的字符不与p匹配 修饰符 字符 含义 i 执行不区分大小写的匹配 g 执行一个全局匹配 m 多行匹配 用于匹配的string方法 search() 参数为正则表达式，返回匹配成功的子串的起始位置，否则返回-1，不支持g，默认忽略 replace() 有两个参数，第一个为匹配的正则表达式，第二个为要替换成的字符串，可以为’$’+数字，与正则表达式中的引用相同，只不过这里用’&amp;’而不是’\’，第二个参数也可以是一个函数，必须有一个返回值，返回值为替换的值，这个函数的参数为匹配成功的字符串 match() 返回值为一个数组，其中，当参数正则表达式执行的不是全局检索（g）时，第一个元素为匹配的字符串，其余元素为正则表达式中括号匹配的子表达式，且只返回第一个匹配成功的；否则，会返回所有满足正则表达式的元素构成的数组，不返回括号中的子表达式 split() 该方法把字符串按照参数拆分成数组，参数可以为正则表达式 RegExp对象 属性 global：是否有g属性 ignoreCase：是否有i属性 multiline：是否有m属性 lastIndex：最后匹配的字符位置（注意，在一些匹配的时候需要重置） source：对应正则表达式的源文本 方法 exec() 返回值为一个数组，第一个元素为匹配的字符串，其余元素为正则表达式中括号匹配的子表达式，且只返回第一个匹配成功的，返回值有index（发生匹配的位置）和input（正在检索的字符串）属性，当同一个正则表达式再次调用的时候，会从lastIndex继续检索，返回值相同，当没有匹配结果的时候，lastIndex重置为0 test() 判断时候匹配，成功返回true，否则返回false]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>js</tag>
+        <tag>reg</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[脚本化css基础及事件]]></title>
     <url>%2F2018%2F06%2F01%2Fdomcss%2F</url>
     <content type="text"><![CDATA[主要关于dom操作css的基础知识 读写元素css属性 dom.style.prop可读写行间样式，没有兼容性问题，碰到关键字，需要加css，复合属性必须拆解，组合单词变成小驼峰式写法，（常用的class名需要变成className查询） 查询计算样式 window.getComputedStyle(ele,null) 计算样式只读，返回的计算样式的值都是绝对值，没有相对单位，并且ie8和ie8以下不兼容 ele.currentStyle ie独有的属性，计算样式只读，返回的计算样式的值不是经过转换的绝对值， 封装兼容性方法1234567function getStyle(ele,prop)&#123; if(window.getComputedStyle)&#123; return window.getComputedStyle(ele,false)[prop] &#125;else&#123; return ele.currentStule[prop] &#125;&#125;//其中getComputedStyle的第二个参数可以查询伪元素的样式 查找，操作样式表（这个没怎么用过） document.styleSheets 该属性中存储了一个HTML文档里面的所有css样式表的集合 事件 事件是交互体验的核心，通过事件，我们可以与页面进行交互，是页面的灵魂，当然内容也很重要 绑定事件 ele.onxxx = function (event){} 兼容性很好，但是只能绑定一个处理程序，程序中this指向的是dom元素本身 ele.addEventListener(type,fn,false); ie9以下不兼容，可以为一个事件绑定多个处理程序，程序中this指向的是dom元素本身 ele.attachEvent(‘on’+type,fn) ie独有，也可以绑定多个处理程序，程序this指向window封装兼容性方法：在下面的方法中，改变了attachEvent中的this指向，而且存储了不同的处理程序，方便以后的事件解除1234567891011121314function addEvent(dom,type,handle)&#123; if(dom.addEventListener)&#123; dom.addEventListener(type,handle,false); &#125;else if(dom.attachEvent)&#123; function temp()&#123; handle.call(dom);//硬绑定this指向dom &#125; temp.name = handle; dom[type] = dom[type]?dom[type].push(temp):[].push(temp); dom.attachEvent('on'+type,temp); &#125;else&#123; dom['on'+type] = handle; &#125;&#125; 解除事件处理程序 ele.onxxx = false/‘’/null ele.removeEventListener(type,fn,false) ele.detachEvent(‘on’+typs,fn)如果绑定匿名函数的话，无法解除；封装解除事件函数12345678910111213function removeEvent(dom,type,handle)&#123; if(dom.removeEnentListener)&#123; dom.removeEventListener(type,handle,false); &#125;else if(dom.detachEvent)&#123; for(var i=0;i&lt;dom[type].length;i++)&#123; if(dom[type][i].name === handle)&#123; dom.detachEvent(type,dom[type][i]); &#125; &#125; &#125;else&#123; dom['on'+type] = null; &#125;&#125; 事件处理模型—事件冒泡、捕获 事件冒泡 ： 最开始是由ie发起的，结构上嵌套关系的元素，会存在事件冒泡的功能，即同一事件，自子元素冒泡向父元素 事件捕获： 由火狐支持的，结构上嵌套关系的元素，会存在事件捕获的功能，即同一事件，自父元素捕获至子元素（事件源元素） 触发顺序 先捕获，后冒泡 ie没有捕获，火狐没有冒泡，Chrome都有，另外focus、blur、change、submit、reset、select等事件不冒泡 取消冒泡和阻止默认事件 取消冒泡 W3C标准 event.stopPropagation() ie9一下不支持 ie独有的event.cancelBubble = true封装取消冒泡函数1234567function stopBubble(event)&#123; if(event.stopPropagation)&#123; event.stopPropagation(); &#125;else&#123; event.cancelBubble = true; &#125;&#125; 阻止默认事件 return false;以对象属性的方式注册的事件才生效 event.preventDefault();W3C标准，ie9以下不兼容 event.returnValue = false;兼容ie默认事件包括表单提交，a标签点击跳转，右键菜单等，封装阻止默认事件的函数1234567891011function cancelHandler(event)&#123; if(event.preventDefault)&#123; event.preventDefault(); &#125;else if(event.returnValue)&#123; event.returnValue = false; &#125;else&#123; return (function()&#123; return false; &#125;()); &#125;&#125; 事件对象 event||window.event 后面的用于ie 事件源对象：1.event.target 火狐独有 2.event.srcElement ie独有的 ；而这两个Chrome都有，兼容性写法 12e = event||window.event;eventTarget = e.target||e.srcElement; 事件委托 利用事件冒泡，对事件源对象进行处理，比如在ul中包含大量的li，li的点击事件就可以在ul中绑定，然后利用事件冒泡，在ul的点击事件中处理，优点如下：1.性能 不需要循环所有的元素一个个绑定事件 2.灵活 当所有新的子元素时不需要重新绑定事件]]></content>
@@ -207,7 +220,7 @@
   <entry>
     <title><![CDATA[test]]></title>
     <url>%2F2018%2F04%2F09%2Ftest%2F</url>
-    <content type="text"><![CDATA[这是一个引用这是啥呢 1[rectangle setX: 10 y: 10 width: 20 height: 20]; content 这是个啥 H1H2h3h4 无序列表1 无序列表2 有序1 有序2 强调？？？？ 百度]]></content>
+    <content type="text"><![CDATA[这是一个引用这是啥呢 1[rectangle setX: 10 y: 10 width: 20 height: 20]; content 这是个啥 H1H2h3h4 无序列表1 无序列表2 有序1 有序2 强调？？？？ 百度 表头 表头 内容 内容 内容 内容 在第二行中的-为对齐方式，默认为左对齐，右面加：为右对齐，左右两面加：为居中 表格中天机竖线可以使用&#124;其他也可以进行 124为十进制的ASCII竖线对应的码值]]></content>
       <categories>
         <category>test</category>
       </categories>
