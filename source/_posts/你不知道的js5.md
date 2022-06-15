@@ -66,7 +66,6 @@ categories: 读书笔记
         console.log(strings.raw)
         console.log(values)
     }
-    ```
 
     showraw`Hellow\nWorld`
     // ['Hellow\nWorld', raw: Array(1)]
