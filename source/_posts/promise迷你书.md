@@ -170,5 +170,5 @@ Promise.reject(object)
 // Promise.all
 Promise.all(promiseArray);
 // Promise.race
-
+Promise.race(promiseArray);
 ```
