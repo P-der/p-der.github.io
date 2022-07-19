@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dom基础">
+<meta property="og:url" content="http://yoursite.com/2018/05/28/js9/index.html">
+<meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-05-28T07:00:06.000Z">
+<meta property="article:modified_time" content="2022-07-19T06:18:22.744Z">
+<meta property="article:author" content="p_der">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="js">
+<meta property="article:tag" content="dom">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>dom基础</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/05/31/js-1/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/05/28/js8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/05/28/js9/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2018/05/28/js9/&text=dom基础"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/05/28/js9/&is_video=false&description=dom基础"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=dom基础&body=Check out this article: http://yoursite.com/2018/05/28/js9/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/05/28/js9/&name=dom基础&description=&lt;p&gt;这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2018/05/28/js9/&t=dom基础"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFdom"><span class="toc-number">1.</span> <span class="toc-text">什么是dom</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        dom基础
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">p_der</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-05-28T07:00:06.000Z" itemprop="datePublished">2018-05-28</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/dom/" rel="tag">dom</a>, <a class="tag-link-link" href="/tags/js/" rel="tag">js</a>, <a class="tag-link-link" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法</p>
+<span id="more"></span>
+
+<h5 id="什么是dom"><a href="#什么是dom" class="headerlink" title="什么是dom"></a>什么是dom</h5><ul>
+<li><p>是Document Object Model的缩写，即文档对象模型。dom定义了表示和修改文档所需的对象、这些对象的行为和属性、这些对象之间的关系。是对html以及xml的标准编程接口</p>
+</li>
+<li><p>节点</p>
+<ul>
+<li>节点有四个属性<ol>
+<li>nodeName 元素的标签名，以大写形式表示只读</li>
+<li>nodeValue text节点或comment节点的文本内容，可读写</li>
+<li>nodeType 该节点的类型，只读</li>
+<li>attributes 节点的属性机顶盒</li>
+</ol>
+</li>
+<li>节点的类型<ol>
+<li>元素节点             1</li>
+<li>属性节点             2</li>
+<li>文本节点             3</li>
+<li>注释节点             8</li>
+<li>document             9 </li>
+<li>DocumentFragment     11</li>
+</ol>
+</li>
+<li>后面的数字是节点的 nodeType的值，通过这个值可以判断出节点的类型</li>
+<li>节点的基本操作<ul>
+<li>遍历节点树<br>  1.parentNode 2.childNodes 3.firstChild 4.lastChild 5.nextSibing 6.previousSibing</li>
+<li>增加节点<br>  1.docuemnt.createElement() 2.document.createTextNode() 3.document.createComment() 4.document.createDocumentFragment()</li>
+<li>插入节点<br>  1.parentnode.appendChild() 2.parentnode.insertBefore(a,b) a插到b前</li>
+<li>删除节点<br>  parent.removeChild()</li>
+<li>替换<br>  parent.replaceChild(new,origin)</li>
+</ul>
+</li>
+<li>元素节点<br>  元素节点比较特殊，是我们主要操作的对象，它有一些其他节点没有的方法<ul>
+<li>查看元素节点<ul>
+<li>document代表整个文档</li>
+<li>document.getElementById()  查找相应Id的元素，在IE8以下的浏览器不区分id大小写，而且也返回匹配name属性的元素</li>
+<li>.getElementsByTageName() 按标签名匹配</li>
+<li>.getElementsByName() 只有部分标签name可以匹配</li>
+<li>.getElementsByClassName() 按类名匹配，ie8和ie8以下的ie中没有，可以同时多个class一起匹配</li>
+<li>.querySelector()  css选择器，ie7和ie7之前没有，非实时，选出匹配的第一个元素</li>
+<li>.querySelectorAll() css选择器，ie7和ie7之前没有，非实时，选出匹配的所有元素</li>
+</ul>
+</li>
+<li>遍历元素节点<br>  1.parentElement（ie不兼容） 2.children 3.node.childElementCount &#x3D;&#x3D;&#x3D; node.children.length 子节点个数（ie不兼容） 4.firstElementChild 返回第一个子元素节点（ie不兼容） 5.lastElementChild 返回最后一个子元素节点（ie不兼容） 6.nextElementSibing&#x2F;previousElementSibing（ie不兼容）</li>
+<li>元素节点的一些属性<ul>
+<li>innerHTML </li>
+<li>innerText(火狐不兼容)&#x2F;textContent(老版本ie不兼容)</li>
+</ul>
+</li>
+<li>元素节点的一些方法<ul>
+<li>.setAttribute()</li>
+<li>.getAttribute()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>dom元素节点上的一些属性<ul>
+<li>查看元素的尺寸 dom.offsetWidth,dom.offsetHeight</li>
+<li>查看元素的位置 dom.offsetLeft,dom.offsetTop 对于没有定位父级的元素，返回相对文档的坐标；对于有定位的父级元素，返回相对于最近的有定位的父级的坐标 dom.offsetParent 返回最近的有定位的父级</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>window上面的一些方法</p>
+<ul>
+<li>定时器（这个是window的方法）<ul>
+<li>创建定时器<ul>
+<li>var timer &#x3D; setInterval() 指定时间重复执行</li>
+<li>var timer &#x3D; setTimerout() 指定时间执行一次</li>
+</ul>
+</li>
+<li>删除定时器<ul>
+<li>clearInterval(timer)</li>
+<li>clearTimerout(timer)</li>
+</ul>
+</li>
+<li>timer 的作用是为了删除的时候确定定时器</li>
+</ul>
+</li>
+<li>查看滚动条的距离<ul>
+<li>window.pageXOffset&#x2F;pageYOffset(ie8和ie8以下不兼容)</li>
+<li>document.body&#x2F;documentElement.scrollLeft&#x2F;scrollTop 兼容性比较混乱，用的时候可以取两个值相加，因为这两个不同时有值，为了兼容封装兼容性的写法，代码如下  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getScrollOffset</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable language_">window</span>.<span class="property">pageXOffset</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">x</span>:<span class="variable language_">window</span>.<span class="property">pageXOffset</span>,</span><br><span class="line">            <span class="attr">y</span>:<span class="variable language_">window</span>.<span class="property">pageYOffset</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">x</span>:<span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollLeft</span>+<span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollLeft</span>,</span><br><span class="line">            <span class="attr">y</span>:<span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollTop</span>+<span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">scrollTop</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>查看视口的尺寸<ul>
+<li>window.innerWidth&#x2F;innerHeight (ie8及ie8以下不兼容)</li>
+<li>document.documentElement.clientWidth&#x2F;clientHeight (标准模式下，任意浏览器都兼容)</li>
+<li>document.body.clientWidth&#x2F;clientHeight (适用于怪异模式下的浏览器)<br>  封装方法如下  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getViewportOffset</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable language_">window</span>.<span class="property">innerWidth</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">            <span class="attr">width</span>:<span class="variable language_">window</span>.<span class="property">innerWidth</span>,</span><br><span class="line">            <span class="attr">height</span>:<span class="variable language_">window</span>.<span class="property">innerHeight</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable language_">document</span>.<span class="property">compatMode</span> == <span class="string">&#x27;CSS1Compat&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">width</span>:<span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientWidth</span>,</span><br><span class="line">            <span class="attr">height</span>:<span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientHeight</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">width</span>:<span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">clientWidth</span>,</span><br><span class="line">            <span class="attr">height</span>:<span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">clientHeight</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>查看元素的几何尺寸<ul>
+<li>ele.getBoundingClientRect() 兼容性很好，该方法返回一个对象，对象里面有left,top,right,bottom等属性，其中还有width,height属性，但在老版本ie中不支持，而且，这个返回值并不是实时的</li>
+</ul>
+</li>
+<li>使滚动条滚动的方法<ul>
+<li>scroll(),scrollTo(),scrollBy()</li>
+<li>参数都是xy坐标，其中scrollBy方法是相对原来的位置进行的累加</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFdom"><span class="toc-number">1.</span> <span class="toc-text">什么是dom</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/05/28/js9/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2018/05/28/js9/&text=dom基础"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/05/28/js9/&is_video=false&description=dom基础"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=dom基础&body=Check out this article: http://yoursite.com/2018/05/28/js9/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2018/05/28/js9/&title=dom基础"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/05/28/js9/&name=dom基础&description=&lt;p&gt;这篇主要关于dom的一些基本知识，脚本化文档的内容，还包括一些window上的定时器方法&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2018/05/28/js9/&t=dom基础"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    p_der
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

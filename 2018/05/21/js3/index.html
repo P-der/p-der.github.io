@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前段时间逛掘金的时候，看到了掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快排学习">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/js3/index.html">
+<meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="前段时间逛掘金的时候，看到了掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序">
+<meta property="og:locale">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/634705/201509/634705-20150921205939850-1052509861.png">
+<meta property="article:published_time" content="2018-05-21T14:49:29.000Z">
+<meta property="article:modified_time" content="2022-07-19T06:18:22.743Z">
+<meta property="article:author" content="p_der">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/634705/201509/634705-20150921205939850-1052509861.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>快排学习</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2018/05/24/js/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/05/09/js2/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/05/21/js3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2018/05/21/js3/&text=快排学习"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/05/21/js3/&is_video=false&description=快排学习"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=快排学习&body=Check out this article: http://yoursite.com/2018/05/21/js3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/05/21/js3/&name=快排学习&description=&lt;blockquote&gt;
+&lt;p&gt;前段时间逛掘金的时候，看到了掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序&lt;/p&gt;
+&lt;/blockquote&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2018/05/21/js3/&t=快排学习"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">快速排序介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E8%A7%A3"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">分解</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%90%88%E5%B9%B6"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%88%92%E5%88%86"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">数组划分</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E8%A7%A3"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">图解</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.</span> <span class="toc-text">JavaScript代码实现</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        快排学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">p_der</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-05-21T14:49:29.000Z" itemprop="datePublished">2018-05-21</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/js/" rel="tag">js</a>, <a class="tag-link-link" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>前段时间逛掘金的时候，看到了掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="快速排序介绍"><a href="#快速排序介绍" class="headerlink" title="快速排序介绍"></a>快速排序介绍</h3><pre><code>算法导论上是这样写的
+</code></pre>
+<blockquote>
+<p>对一个典型子数组A[p..r]排序的分治过程的三个步骤：</p>
+</blockquote>
+<h6 id="分解"><a href="#分解" class="headerlink" title="分解"></a>分解</h6><p>  数组A[p..r]被划分成两个（可能空）子数组A[p..q-1]和A[q+1..r]，使得A[p..q-1]中的每个元素都小于等于A(q)，而且，小于等于A[q+1..r]中的元素。小标q也在这个划分过程中进行计算。</p>
+<h6 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h6><p>  通过递归调用快速排序，对子数组A[p..q-1]和A[q+1..r]排序。</p>
+<h6 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h6><p>  因为两个子数组是就地排序的，将它们的合并不需要操作：整个数组A[p..r]已排序。</p>
+<pre><code>下面的过程实现快速排序：
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">QUICKSORT(A,p,r)</span><br><span class="line"> if&lt;r</span><br><span class="line">  then q &lt;-- PARTITION(A,p,r)</span><br><span class="line">   QUICKSORT(A,p,q-1)</span><br><span class="line">   QUICKSORT(A,q+1,r)   </span><br></pre></td></tr></table></figure>
+为排序一个完整的数组A，最初的调用是QUICKSORT(A,1,length[A])。
+</code></pre>
+<h6 id="数组划分"><a href="#数组划分" class="headerlink" title="数组划分"></a>数组划分</h6><pre><code>快速排序算法的关键是PARTITION过程，它对子数组A[p..r]进行就地重排：
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PARTITION(A,p,r)</span><br><span class="line"> x &lt;-- A[r]</span><br><span class="line"> i &lt;-- p-1</span><br><span class="line"> for j &lt;-- p to r-1</span><br><span class="line">  do if A[j]&lt;=x</span><br><span class="line">   then i &lt;-- i+1</span><br><span class="line">    exchange A[i]&lt;--&gt;A[j]</span><br><span class="line"> exchange A[i+1]&lt;--&gt;A[r]</span><br><span class="line"> return i+1</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h6 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h6><p><img src="https://images2015.cnblogs.com/blog/634705/201509/634705-20150921205939850-1052509861.png" alt="快速排序图解（无耻抠图）"></p>
+<h4 id="JavaScript代码实现"><a href="#JavaScript代码实现" class="headerlink" title="JavaScript代码实现"></a>JavaScript代码实现</h4><pre><code class="JavaScript">function quicksort(arr,l,r)&#123;
+    if(l&lt;r)&#123;
+        var q = partition(arr,l,r);
+        quicksort(arr,l,q-1);
+        quicksort(arr,q+1,r);
+    &#125;
+&#125;
+function partition(arr,l,r)&#123;
+    var x = arr[r];
+    var i = l-1;
+    for(var j = l;j&lt;r;j++)&#123;
+        if(arr[j]&lt;=x)&#123;
+            i++;
+            var temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+        &#125;
+    &#125;
+    arr[r] = arr[i+1];
+    arr[i+1] = x;
+    return i+1;
+&#125;
+</code></pre>
+<p>以上就是快排的基本实现，仿照算法导论进行的编写，嘿嘿嘿  </p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">快速排序介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E8%A7%A3"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">分解</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%90%88%E5%B9%B6"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">合并</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%88%92%E5%88%86"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">数组划分</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9B%BE%E8%A7%A3"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">图解</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.</span> <span class="toc-text">JavaScript代码实现</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/05/21/js3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2018/05/21/js3/&text=快排学习"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/05/21/js3/&is_video=false&description=快排学习"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=快排学习&body=Check out this article: http://yoursite.com/2018/05/21/js3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2018/05/21/js3/&title=快排学习"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/05/21/js3/&name=快排学习&description=&lt;blockquote&gt;
+&lt;p&gt;前段时间逛掘金的时候，看到了掘金上的热门，关于快速排序的，虽然那篇文章很有争议，我还是看了看，发现了自己的一些不足，于是学习了一下快速排序&lt;/p&gt;
+&lt;/blockquote&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2018/05/21/js3/&t=快排学习"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    p_der
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="复习一下css3一些常用的姿势">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css3基础知识">
+<meta property="og:url" content="http://yoursite.com/2018/06/09/css3/index.html">
+<meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="复习一下css3一些常用的姿势">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-06-09T06:48:11.000Z">
+<meta property="article:modified_time" content="2022-07-19T06:18:22.741Z">
+<meta property="article:author" content="p_der">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>css3基础知识</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/05/10/html/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2018/06/03/reg/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/06/09/css3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2018/06/09/css3/&text=css3基础知识"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/06/09/css3/&is_video=false&description=css3基础知识"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=css3基础知识&body=Check out this article: http://yoursite.com/2018/06/09/css3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/06/09/css3/&name=css3基础知识&description=&lt;p&gt;复习一下css3一些常用的姿势&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2018/06/09/css3/&t=css3基础知识"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#css3"><span class="toc-number">1.</span> <span class="toc-text">css3</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#css3%E5%88%9D%E7%BA%A7%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">css3初级知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#css3%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">css3选择器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#css3%E8%BF%9B%E9%98%B6"><span class="toc-number">4.</span> <span class="toc-text">css3进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#transform%E5%BD%A2%E7%8A%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">4.1.</span> <span class="toc-text">transform形状变换</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#transition%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB"><span class="toc-number">4.2.</span> <span class="toc-text">transition过渡动画</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#animation%E5%8A%A8%E7%94%BB"><span class="toc-number">4.3.</span> <span class="toc-text">animation动画</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#columns%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80"><span class="toc-number">4.4.</span> <span class="toc-text">columns多列布局</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E7%9B%92%E5%AD%90flex%E5%B8%83%E5%B1%80"><span class="toc-number">4.5.</span> <span class="toc-text">弹性盒子flex布局</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        css3基础知识
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">p_der</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-06-09T06:48:11.000Z" itemprop="datePublished">2018-06-09</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/css/" rel="tag">css</a>, <a class="tag-link-link" href="/tags/js/" rel="tag">js</a>, <a class="tag-link-link" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>复习一下css3一些常用的姿势</p>
+<span id="more"></span>
+
+<h5 id="css3"><a href="#css3" class="headerlink" title="css3"></a>css3</h5><ul>
+<li>css3是css2的升级版本，主流浏览器已经支持大部分的功能了，ie10后也开始全面支持css3了</li>
+<li>css3前缀：在编写css3样式的时候，不同的浏览器可能需要不同的前缀，这是为了兼容各个版本的浏览器Chrome和Safari前缀为-webkit，Firefox为-moz，IE为-ms，Opera为-o</li>
+</ul>
+<h5 id="css3初级知识"><a href="#css3初级知识" class="headerlink" title="css3初级知识"></a>css3初级知识</h5><ul>
+<li>border-radius:圆角</li>
+<li>border-shadow:x轴偏移量 y轴偏移量 阴影模糊半径 阴影拓展半径 阴影颜色 投影方式 —盒子阴影，可以加多个阴影，通过逗号隔开</li>
+<li>text-shadow:x-offset y-offset blur(模糊程度) color</li>
+<li>背景颜色渐变gradient<ol>
+<li>线性渐变 linear-gradient([direction],color[percent],color[percent],…)</li>
+<li>径向渐变 radial-gradient(shape r at position,color[percent],color[percent],…)<br> 其中shape可以为circle也可以为ellipse，position为圆心位置，r为半径，椭圆的时候该位置为x和y，为长轴和短轴</li>
+</ol>
+</li>
+<li>word-wrap:normal|bread-word;—文字边界换行</li>
+<li>font-face:例子如下，其中引用多个不同格式的字体是为了兼容 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span>&#123;</span><br><span class="line">    <span class="attribute">font-family</span>:<span class="string">&#x27;myFont&#x27;</span>;</span><br><span class="line">    <span class="attribute">src</span>:<span class="built_in">url</span>(<span class="string">&#x27;sansation_Lifht.ttf&#x27;</span>),</span><br><span class="line">       <span class="built_in">url</span>(<span class="string">&#x27;sansation_Lifht.eot&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;eot&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">p</span>&#123;</span><br><span class="line">    <span class="attribute">font-family</span>:<span class="string">&#x27;myFont&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 有一个比较全的兼容版本如下 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span>&#123;</span><br><span class="line">    <span class="attribute">font-family</span>:<span class="string">&#x27;diyfont&#x27;</span>;</span><br><span class="line">    <span class="attribute">src</span>:<span class="built_in">url</span>(<span class="string">&#x27;diyfont.eot&#x27;</span>)<span class="comment">/*ie9+*/</span></span><br><span class="line">    src:<span class="built_in">url</span>(<span class="string">&#x27;diyfont.eot?#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>),<span class="comment">/*ie6-ie8*/</span></span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&#x27;diyfont.woff&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>),<span class="comment">/*chrome,firefox*/</span></span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&#x27;diyfont.ttf&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>),<span class="comment">/*chrome,firefox,opera,safari,android,ios4.2+*/</span></span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&#x27;diyfont.svg#fontname&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>);<span class="comment">/*ios4.1-*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>border-image:边框应用背景 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">border-image</span>:<span class="built_in">url</span>(<span class="string">xxx.png</span>) number stretch|repeat|round</span><br></pre></td></tr></table></figure>
+ 如上，number为截取指定图片四周的宽度为border的背景填充部分，最后一个参数为展示方式，stretch为拉伸，repeat为平铺（从中间开始），round为铺满（中间的平铺，如果大于某个极限值的时候，就会进行复制，有点像响应式布局中的随宽度进行改变，像裂变一样），在计算的时候会把引用的图片切成九宫格，最后一个就为十字部分的展开方式，number为四个角的部分的宽和高</li>
+<li>background-origin:border-box|padding-box|content-box; 背景图片的起始位置，默认从padding区域开始</li>
+<li>background-clip:border-box|padding-box|content-box|no-clip<br> 其中webkit可以做文字的clip需要配合text-fill-color属性 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    text-fill-<span class="attribute">color</span>:-webkit-background-clip;</span><br><span class="line">    -webkit-<span class="attribute">background-clip</span>:text;</span><br><span class="line">    -webkit-text-fill-<span class="attribute">color</span>:transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>background-size:auto|长度值|百分比|cover|contain<br> 其中cover为<em>铺满</em>背景，超过部分截断，contain为尽量纯在一<em>整</em>张图片  — 设置背景图片大小</li>
+</ul>
+<h5 id="css3选择器"><a href="#css3选择器" class="headerlink" title="css3选择器"></a>css3选择器</h5><ul>
+<li>属性选择器<ol>
+<li>E[att^&#x3D;’val’] 选择匹配的元素E，E定义了属性att，以val开头</li>
+<li>E[att$&#x3D;’val’] 选择匹配的元素E，E定义了属性att，以val结尾</li>
+<li>E[att*&#x3D;’val’] 选择匹配的元素E，E定义了属性att，属性的任意位置出现了val</li>
+</ol>
+</li>
+<li>伪类选择器<ol>
+<li>root 根标签选择器</li>
+<li>not 否定选择器</li>
+<li>empty 空标签选择器</li>
+<li>target 目标元素选择器，用来匹配location.hash选中的元素</li>
+<li>first-child|last-child|nth-child()|nth-last-child() 子元素选择器，如果当前位置元素不是前面所修饰的元素，无效（必须位置与元素相同）</li>
+<li>first-of-type|last-of-type|nth-of-type()|nth-last-of-type() 该种选择器与第5种的不同就是实在元素类型中位置为选中的元素</li>
+<li>only-child|only-of-type 这两个的区别于56的区别相同，是查找唯一子元素选择器</li>
+<li>enabled|disabled 可用|不可用的元素，如复选框等，可以通过伪类进行选择</li>
+<li>checked 选择框被选中的状态</li>
+<li>read-only|read-write 选中只读|非只读的元素，配合标签上的readonly使用<br> 这些伪类选择器在使用的时候需要在前面加’:’</li>
+</ol>
+</li>
+<li>伪元素选择器<br> 添加了first-letter first-line before after selection(匹配突出显示的文本)，selection中有个属性user-select:none;就是无法被选中的</li>
+<li>伪元素和伪类的区别<br> 伪元素效果是需要通过添加一个实际的元素才能达到的<br> 伪类则是选择一类，多个元素</li>
+<li>条件选择<ol>
+<li>&amp;#62; 直接子元素</li>
+<li>&amp;#43; 后面紧挨着的兄弟节点</li>
+<li>~ 后面的兄弟节点</li>
+</ol>
+</li>
+</ul>
+<h5 id="css3进阶"><a href="#css3进阶" class="headerlink" title="css3进阶"></a>css3进阶</h5><h6 id="transform形状变换"><a href="#transform形状变换" class="headerlink" title="transform形状变换"></a>transform形状变换</h6><ul>
+<li>rotate() 旋转默认为z轴方向，有rotateX|Y|3d</li>
+<li>scale() 缩放，可以接收两个参数，为x轴和y轴方向上的缩放倍数，如果没有第二个参数，默认使用第一个参数，还可以分解成scaleX()&#x2F;Y&#x2F;Z，还有一个scale3d() 其中就可以填写xyz的缩放倍数</li>
+<li>skew() 扭曲，同scale一样，为两个参数，但是只能分解成skewX()&#x2F;Y，在只有一个参数的时候y轴默认为0</li>
+<li>translate() 移动，相对于自身进行移动，默认有两个参数可以分解为translateX|Y|Z，还有translate3d()</li>
+<li>特殊的是transform-origin 作用是变换圆点，默认为中央的位置，可以通过百分比，或者关键字进行修改</li>
+</ul>
+<h6 id="transition过渡动画"><a href="#transition过渡动画" class="headerlink" title="transition过渡动画"></a>transition过渡动画</h6><ul>
+<li>它是一个复合属性，有以下几个子属性</li>
+</ul>
+<ol>
+<li>transition-property 过渡的css属性</li>
+<li>transition-duration 过渡所需时间</li>
+<li>transition-timing-function 过渡函数</li>
+<li>transition-delay 延迟时间</li>
+</ol>
+<h6 id="animation动画"><a href="#animation动画" class="headerlink" title="animation动画"></a>animation动画</h6><ul>
+<li>它也是一个复合属性，主要有以下的子元素</li>
+</ul>
+<ol>
+<li>animation-name 执行动画的keyframe名，其中keyframe如下定义，如果只有0%和100%两个关键帧，可以用from to 代替 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> move&#123;</span><br><span class="line"> <span class="number">0%</span>&#123;...&#125;</span><br><span class="line"> <span class="number">10%</span>&#123;...&#125;</span><br><span class="line"> <span class="number">100%</span>&#123;...&#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>animation-duration 动画执行时间</li>
+<li>animation-timing-function 过渡函数速率</li>
+<li>animation-delay 延迟时间</li>
+<li>animation-iteration-count 定义播放次数</li>
+<li>animation-direction 定义播放方向 有normal（默认值）reverse（反向播放）alternate（奇数次正向，偶数次反向）alternate-reverse（奇数次反向，偶数次正向）</li>
+<li>animation-play-state 播放状态 running（播放）paused（暂停） </li>
+<li>animation-fill-mode 表示在结束时发生的操作 none（默认值）forwards（停留在最后关键帧的位置）backwards（开始的时候应用初始帧的位置）both（同时具有forwards和backwars效果）</li>
+</ol>
+<h6 id="columns多列布局"><a href="#columns多列布局" class="headerlink" title="columns多列布局"></a>columns多列布局</h6><ul>
+<li>主要应用在文本的多列布局，类似报纸杂志的那种布局方式</li>
+<li>columns:[column-width] [column-count]，也是复合属性，可以分解，column-width为每一类的宽度，根据容器宽度自适应（最小宽度）；column-count为规定列数，不要两个一起使用</li>
+<li>column-gap 设置列与列之间的宽度，没有的时候会按浏览器的font-size来定</li>
+<li>column-rule 与border类似，是缝的样式，有width,style,color</li>
+<li>column-span 设置多列布局元素内的子元素，标题只有1|all两个可选的值，1为在第一列，all为在所有列的上面中间</li>
+</ul>
+<h6 id="弹性盒子flex布局"><a href="#弹性盒子flex布局" class="headerlink" title="弹性盒子flex布局"></a>弹性盒子flex布局</h6><blockquote>
+<p>可以观看阮一峰大佬博客中关于弹性盒子的描述，非常详细，而且有图—<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?%5E%25$">阮一峰flex布局</a></p>
+</blockquote>
+<ul>
+<li>设置方式 display:flex</li>
+<li>在子元素上设置的属性<ol>
+<li>flex-grow 根据设置的比例分配盒子剩余的空间</li>
+<li>flex-shrink 根据设置的比例承担超出盒子部分的大小</li>
+<li>flex-basis 伸缩基准值，和width一样，但是如果设置该属性，会覆盖width属性的值</li>
+<li>flex 前三个的复合体</li>
+<li>order 排序，从小到大排序</li>
+<li>align-self 对齐方式，允许单个子元素和其他的不同，可覆盖align-items属性，有以下的值可以填 auto|flex-start|flex-end|center|baseline|stretch auto表示继承父元素的align-items属性,如果没有父元素，等同于stretch</li>
+</ol>
+</li>
+<li>在父元素上设置的属性<ol>
+<li>flex-direction 设置主轴方向 row|row-reverse|column|column-reverse</li>
+<li>flex-wrap 设置换行 nowrap|wrap|wrap-reverse</li>
+<li>flex-flow 是前两个的复合体</li>
+<li>justify-content 元素在主轴上的对齐方式 flex-start（默认值，左对齐）flex-end（右对齐）center（居中）space-between（两端对齐，项目之间的间隔相等）space-around（项目之间两侧的间隔相等）</li>
+<li>align-items 设置在侧轴上的对齐方式 flex-start|flex-end|center|baseline|stretch</li>
+<li>align-content 设置多根轴线的对齐方式 flex-start|flex-end|center|space-between|space-around|stretch</li>
+</ol>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#css3"><span class="toc-number">1.</span> <span class="toc-text">css3</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#css3%E5%88%9D%E7%BA%A7%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">css3初级知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#css3%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">css3选择器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#css3%E8%BF%9B%E9%98%B6"><span class="toc-number">4.</span> <span class="toc-text">css3进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#transform%E5%BD%A2%E7%8A%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">4.1.</span> <span class="toc-text">transform形状变换</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#transition%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB"><span class="toc-number">4.2.</span> <span class="toc-text">transition过渡动画</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#animation%E5%8A%A8%E7%94%BB"><span class="toc-number">4.3.</span> <span class="toc-text">animation动画</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#columns%E5%A4%9A%E5%88%97%E5%B8%83%E5%B1%80"><span class="toc-number">4.4.</span> <span class="toc-text">columns多列布局</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E7%9B%92%E5%AD%90flex%E5%B8%83%E5%B1%80"><span class="toc-number">4.5.</span> <span class="toc-text">弹性盒子flex布局</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/06/09/css3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2018/06/09/css3/&text=css3基础知识"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/06/09/css3/&is_video=false&description=css3基础知识"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=css3基础知识&body=Check out this article: http://yoursite.com/2018/06/09/css3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2018/06/09/css3/&title=css3基础知识"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/06/09/css3/&name=css3基础知识&description=&lt;p&gt;复习一下css3一些常用的姿势&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2018/06/09/css3/&t=css3基础知识"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    p_der
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

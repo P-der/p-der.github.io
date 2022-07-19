@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="作用域与闭包    this与对象原型    类型与文法    异步与性能    ES6与未来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你不知道的js(三)">
+<meta property="og:url" content="http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/index.html">
+<meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="作用域与闭包    this与对象原型    类型与文法    异步与性能    ES6与未来">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-06-06T09:54:55.000Z">
+<meta property="article:modified_time" content="2022-07-19T06:18:22.746Z">
+<meta property="article:author" content="p_der">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>你不知道的js(三)</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/06/07/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js4/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/06/05/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js2/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&text=你不知道的js(三)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&is_video=false&description=你不知道的js(三)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=你不知道的js(三)&body=Check out this article: http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&name=你不知道的js(三)&description=&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+作用域与闭包&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+this与对象原型&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+类型与文法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+异步与性能&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+ES6与未来&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&t=你不知道的js(三)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%96%87%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">类型与文法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%BC"><span class="toc-number">1.2.</span> <span class="toc-text">值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%86%85%E5%BB%BA%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">原生类型（内建类型）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.4.</span> <span class="toc-text">强制转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%B3%95"><span class="toc-number">1.5.</span> <span class="toc-text">文法</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        你不知道的js(三)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">p_der</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-06-06T09:54:55.000Z" itemprop="datePublished">2022-06-06</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/js/" rel="tag">js</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <ul>
+<li><p><input disabled="" type="checkbox"> 
+作用域与闭包</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+this与对象原型</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+类型与文法</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+异步与性能</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+ES6与未来</p>
+<span id="more"></span>
+
+<h1 id="类型与文法"><a href="#类型与文法" class="headerlink" title="类型与文法"></a>类型与文法</h1></li>
+</ul>
+<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul>
+<li>内建类型 <code>null</code> <code>undefined</code> <code>boolean</code> <code>number</code> <code>string</code> <code>object</code> <code>symbol</code> <code>bigInt</code></li>
+<li>对于未定义的变量判断，使用typeof的安全防卫机制（防止一个错误）是有用的</li>
+</ul>
+<h2 id="值"><a href="#值" class="headerlink" title="值"></a>值</h2><ul>
+<li><p>array</p>
+<ul>
+<li>不建议使用string作为key</li>
+</ul>
+</li>
+<li><p>类array</p>
+<ul>
+<li>Array.prototype.slice.call </li>
+<li>Array.from</li>
+</ul>
+</li>
+<li><p>string</p>
+<ul>
+<li>可以通过Array.prototype.join.call去调用数组方法处理字符串</li>
+</ul>
+</li>
+<li><p>number</p>
+<ul>
+<li><p>小数值判断：Number.EPSILON 最小的一个容差，如果小于就认为是相等的</p>
+</li>
+<li><p>判断整数：Number.isInteger</p>
+</li>
+<li><p>undefined 在非严格情况下可以作为变量名进行赋值操作，可以通过void 0 获取一个安全的undefined</p>
+</li>
+<li><p>NaN 唯一一个不等于本身的数</p>
+<ul>
+<li>全局的isNaN判断是转换成number类型进行判断的</li>
+<li>Number.isNaN 可以进行判断</li>
+</ul>
+</li>
+<li><p>无穷 可以变成无穷，但是不可以反操作， Infinity&#x2F; Infinity 为NaN</p>
+</li>
+<li><p>零 +0 -0 0</p>
+<ul>
+<li>&#x3D;&#x3D; 或&#x3D;&#x3D;&#x3D; 时都是相等的</li>
+</ul>
+</li>
+<li><p>特殊等价 Object.is 忽略前面的，符合一般的逻辑</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="property">is</span> = <span class="keyword">function</span>(<span class="params">v1, v2</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(v1 === <span class="number">0</span> &amp;&amp; v2 === <span class="number">0</span>) &#123; <span class="comment">// 判断-1的情况</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>/v1 === <span class="number">1</span>/v2</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(v1 !== v1) &#123; <span class="comment">// 判断NaN的情况</span></span><br><span class="line">        <span class="keyword">return</span> v2 !== v2</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> v1 === v2 <span class="comment">// 其他情况</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>值与引用</p>
+<ul>
+<li>需要注意是否使用的引用，需要注意出现的更改影响范围</li>
+</ul>
+</li>
+</ul>
+<h2 id="原生类型（内建类型）"><a href="#原生类型（内建类型）" class="headerlink" title="原生类型（内建类型）"></a>原生类型（内建类型）</h2><ul>
+<li><p>也就是js内常用的构建函数</p>
+</li>
+<li><p>typeof 结果通常为object 需要通过Object.prototype.toString.call 的返回值去判断具体类型</p>
+</li>
+<li><p>包装类 需要注意故意包装的类型是object 如果判断结果一定是true</p>
+</li>
+<li><p>开箱 valueof </p>
+</li>
+<li><p>Array 需要注意各种生成空值数组的情况，不建议使用</p>
+</li>
+<li><p>Function.prototype 是一个函数 RegExp.prototype 是一个正则表达式 Array.prototype 是一个数组</p>
+</li>
+</ul>
+<h2 id="强制转换"><a href="#强制转换" class="headerlink" title="强制转换"></a>强制转换</h2><ul>
+<li>抽象值操作<ul>
+<li>ToString null &#x3D;&gt; ‘null’ undefined &#x3D;&gt; ‘undefined’ true &#x3D;&gt; ‘true’<ul>
+<li>JSON.stringify 遇到undefined function symbol 会忽略 如果在array中会转换为null 如果遇到循环引用会报错， 内部实际调用了toJSON的方法，string number boolean null 调用的结果与tostring相同</li>
+</ul>
+</li>
+<li>ToNumber<ul>
+<li>string类型是希望转换为数字，如果不可以就为NaN</li>
+<li>对象会 ToPrimitive操作 执行valueof（如果有，并且返回为基本类型） 然后去执行toString，都没有就会报错，然后toNumber</li>
+</ul>
+</li>
+<li>ToBoolean</li>
+<li>转为false的值为：<code>undefined</code> <code>null</code> <code>+0/-0/NaN</code> <code>false</code> <code>&#39;&#39;</code>, 其余都为true</li>
+</ul>
+</li>
+<li>明确的类型转换<ul>
+<li>+转换字符串为数字 ～转换-1为0 ，～x &#x3D; -(x+1) ～～截取整数</li>
+<li>parseInt 建议一直写第二个参数为10，防止判断为其他进制, 如果传入的不是string类型的参数，则会toString 然后再去执行操作</li>
+</ul>
+</li>
+<li>隐含的类型转换<ul>
+<li>string &lt;–&gt; number<ul>
+<li>+求和时： 如果其中有一个为string 则变成string相加，其他类型会ToPrimitive然后相加</li>
+</ul>
+</li>
+<li>symbol<ul>
+<li>可以通过String转换为字符串，但是不可以用+’’去转换</li>
+</ul>
+</li>
+<li>&#x3D;&#x3D; 与 &#x3D;&#x3D;&#x3D; &#x3D;&#x3D;允许类型转换 &#x3D;&#x3D;&#x3D; 不允许<ul>
+<li>类型相同，直接比较，如果是引用类型，比较引用是否相同</li>
+<li>string与number比较，toNumber后进行比较</li>
+<li>boolean与其他类型比较，toNumber（boolean）然后进行比较</li>
+<li>null 与 undefine 为 true 和其他值比较为false</li>
+<li>object与其他比较 toPrimitive后进行比较</li>
+</ul>
+</li>
+<li>比较大小时，如果有一个为number，另一个会 会toPriitive 然后执行toNumber， 如果都为字符串，则按字符比较</li>
+</ul>
+</li>
+</ul>
+<h2 id="文法"><a href="#文法" class="headerlink" title="文法"></a>文法</h2><ul>
+<li>语句与表达式<ul>
+<li>js中 语句为句子 表达式为短语</li>
+</ul>
+</li>
+<li>语句完成值，就是语句结束在控制台上可以看到的值</li>
+<li>[] + {} 与 {} + []<ul>
+<li>[] + {} &#x3D;&gt; ‘’ + ‘[object Object]’  &#x3D;&gt; ‘[object Object]’ 其中 {} 为 空对象</li>
+<li>{} + [] &#x3D;&gt; + []  &#x3D;&gt; + ‘’ &#x3D;&gt; 0 其中{} 为一个空的代码块</li>
+</ul>
+</li>
+<li>else if  其实并不存在 else{ if }</li>
+<li>&amp;&amp; 比 ||优先级高</li>
+<li>加不加分号<ul>
+<li>建议是，尽可能的加分号</li>
+</ul>
+</li>
+<li>暂时性死区<ul>
+<li>typeof 也是一样会报错</li>
+</ul>
+</li>
+<li>函数参数，不要即用参数变量又用argument的值，会产生歧义<ul>
+<li>非严格模式下，如果传入参数，参数变量修改会映射到argument上，否则不会</li>
+<li>严格模式下，参数变量修改不会影响argument</li>
+</ul>
+</li>
+<li>try…finally 会执行try，然后执行finally 最后如果是函数返回，才会继续执行</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%96%87%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">类型与文法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%BC"><span class="toc-number">1.2.</span> <span class="toc-text">值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%86%85%E5%BB%BA%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">原生类型（内建类型）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.4.</span> <span class="toc-text">强制转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%B3%95"><span class="toc-number">1.5.</span> <span class="toc-text">文法</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&text=你不知道的js(三)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&is_video=false&description=你不知道的js(三)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=你不知道的js(三)&body=Check out this article: http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&title=你不知道的js(三)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&name=你不知道的js(三)&description=&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+作用域与闭包&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+this与对象原型&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+类型与文法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+异步与性能&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 
+ES6与未来&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2022/06/06/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84js3/&t=你不知道的js(三)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    p_der
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
