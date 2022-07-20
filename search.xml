@@ -2230,4 +2230,25 @@ ES6与未来</p>
 <p>Signature 是一个二进制的数据，用来验证 Header 和 Payload 内容的完整性<br>通过这样的结构，就可以获取身份的信息，并且通过验证可以安全的去使用</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>理解CAS</title>
+    <url>/2022/07/20/%E7%90%86%E8%A7%A3CAS/</url>
+    <content><![CDATA[<ul>
+<li>集中式认证服务（英语：Central Authentication Service，缩写CAS）是一种针对万维网的单点登录协议。它的目的是允许一个用户访问多个应用程序，而只需向认证服务器提供一次凭证（如用户名和密码）。在使用服务前，如果是没有登录的使用者，会先被跳转到认证服务的地方进行登录，登录成功后就会重定向到原本使用服务的页面</li>
+<li>Authentication 代表的是否是具体人 Authorization 代表的是否是有权限获取资源（大概的对比😂）</li>
+<li>角色<ul>
+<li>使用者： 用户</li>
+<li>应用服务A：使用者必须要登录才能使用的 A 服务(AP1)</li>
+<li>应用服务B：使用者必须要登录才能使用的 B 服务(AP2)</li>
+<li>CAS Server：使用者被重定向到的输入密码的地方</li>
+</ul>
+</li>
+<li>流程<ul>
+<li>第一次登录 使用 A<br><img src="/images/case-01.png" alt="首次登录"></li>
+<li>第二次登录 使用 B<br><img src="/images/case-02.png" alt="再次登录"></li>
+</ul>
+</li>
+</ul>
+]]></content>
+  </entry>
 </search>
