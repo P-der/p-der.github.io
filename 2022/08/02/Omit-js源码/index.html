@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="掘金  Omit.js 源码分析 仓库地址 源码路径 omit.js&#x2F;src&#x2F;index.js 功能介绍  12var omit &#x3D; require(&amp;#x27;omit.js&amp;#x27;);omit(&amp;#123; name: &amp;#x27;Benjy&amp;#x27;, age: 18 &amp;#125;, [ &amp;#x27;name&amp;#x27; ]); &#x2F;&#x2F; &#x3D;&gt; &amp;#123; a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Omit.js源码">
+<meta property="og:url" content="http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/index.html">
+<meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="掘金  Omit.js 源码分析 仓库地址 源码路径 omit.js&#x2F;src&#x2F;index.js 功能介绍  12var omit &#x3D; require(&amp;#x27;omit.js&amp;#x27;);omit(&amp;#123; name: &amp;#x27;Benjy&amp;#x27;, age: 18 &amp;#125;, [ &amp;#x27;name&amp;#x27; ]); &#x2F;&#x2F; &#x3D;&gt; &amp;#123; a">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-08-02T13:56:57.000Z">
+<meta property="article:modified_time" content="2022-08-02T13:59:58.532Z">
+<meta property="article:author" content="p_der">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Omit.js源码</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/07/20/%E7%90%86%E8%A7%A3SAML/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&text=Omit.js源码"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&is_video=false&description=Omit.js源码"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Omit.js源码&body=Check out this article: http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&name=Omit.js源码&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&t=Omit.js源码"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Omit-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">Omit.js 源码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npm-%E5%8C%85%E6%89%80%E5%8C%85%E5%90%AB%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">2.</span> <span class="toc-text">npm 包所包含的内容</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Omit.js源码
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">p_der</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-08-02T13:56:57.000Z" itemprop="datePublished">2022-08-02</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">源码阅读笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/js/" rel="tag">js</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7127275216807395341">掘金</a></li>
+</ul>
+<h3 id="Omit-js-源码分析"><a href="#Omit-js-源码分析" class="headerlink" title="Omit.js 源码分析"></a>Omit.js 源码分析</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/benjycui/omit.js">仓库地址</a></li>
+<li>源码路径 omit.js&#x2F;src&#x2F;index.js</li>
+<li>功能介绍</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> omit = <span class="built_in">require</span>(<span class="string">&#x27;omit.js&#x27;</span>);</span><br><span class="line"><span class="title function_">omit</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;Benjy&#x27;</span>, <span class="attr">age</span>: <span class="number">18</span> &#125;, [ <span class="string">&#x27;name&#x27;</span> ]); <span class="comment">// =&gt; &#123; age: 18 &#125;</span></span><br></pre></td></tr></table></figure>
+<p>   如上所示，通过第二个参数剔除，不需要的 key</p>
+<ul>
+<li>源码分析</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">omit</span>(<span class="params">obj, fields</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> shallowCopy = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, obj);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; fields.<span class="property">length</span>; i += <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> key = fields[i];</span><br><span class="line">    <span class="keyword">delete</span> shallowCopy[key];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> shallowCopy;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> omit;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>通过 Object.assign 创建出一个浅拷贝的对象</li>
+<li>循环 fields，删除拷贝对象中对应的 key</li>
+<li>返回拷贝值</li>
+</ol>
+<ul>
+<li>对比 <a target="_blank" rel="noopener" href="https://github.com/lodash/lodash/blob/es/omit.js">lodash&#x2F;omit</a></li>
+</ul>
+<ol>
+<li>lodash 考虑了 深拷贝的情况（fields 中是否有 数组的子项）</li>
+<li>lodash 考虑了边界情况，如 obj 是否为 null；fields 是否为一个类数组；fields 中是否有特殊的 key（__proto__）</li>
+<li>lodash 没有使用 es6 的方法，兼容性会更好些</li>
+</ol>
+<h3 id="npm-包所包含的内容"><a href="#npm-包所包含的内容" class="headerlink" title="npm 包所包含的内容"></a>npm 包所包含的内容</h3><ul>
+<li>&#x2F;tests jest测试</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/umijs/father">father</a><blockquote>
+<p> Library toolkit based on rollup, docz, storybook, jest, prettier and eslint.<br> 包括了库的打包、输出文档、测试及格式化</p>
+</blockquote>
+</li>
+<li>LICENSE 证书</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Omit-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">Omit.js 源码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npm-%E5%8C%85%E6%89%80%E5%8C%85%E5%90%AB%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">2.</span> <span class="toc-text">npm 包所包含的内容</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&text=Omit.js源码"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&is_video=false&description=Omit.js源码"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Omit.js源码&body=Check out this article: http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&title=Omit.js源码"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&name=Omit.js源码&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2022/08/02/Omit-js%E6%BA%90%E7%A0%81/&t=Omit.js源码"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    p_der
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
