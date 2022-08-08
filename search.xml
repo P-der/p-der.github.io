@@ -2304,4 +2304,80 @@ ES6与未来</p>
         <tag>js</tag>
       </tags>
   </entry>
+  <entry>
+    <title>vue2-shared源码</title>
+    <url>/2022/08/08/vue2-shared%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<ul>
+<li><a href="https://juejin.cn/post/7129517974452437029">掘金</a></li>
+</ul>
+<h3 id="vue2-shared-源码分析"><a href="#vue2-shared-源码分析" class="headerlink" title="vue2-shared 源码分析"></a>vue2-shared 源码分析</h3><ul>
+<li><p><a href="https://github.com/vuejs/vue/blob/dev/dist/vue.js#L14-L379">打包后代码地址</a></p>
+</li>
+<li><p><a href="https://github.com/vuejs/vue/tree/dev/src/shared">源码地址 src&#x2F;shared&#x2F;</a></p>
+</li>
+<li><p>工具函数(util.ts)</p>
+<ul>
+<li>emptyObject <code>Object.freeze(&#123;&#125;)</code> 冻结对象</li>
+<li>isArray Array.isArray</li>
+<li>isUndef 是否未定义 判断是否为<code>null</code> | <code>undefined</code></li>
+<li>isDef 是否定义 判断不是<code>null</code> &amp;&amp; <code>undefined</code></li>
+<li>isTrue 是否为<code>true</code></li>
+<li>isFalse 是否为<code>false</code></li>
+<li>isPrimitive 是否为原始类型 判断是否为<code>string``number``symbol``boolean</code></li>
+<li>isFunction 是否为函数</li>
+<li>isObject 是否为对象</li>
+<li>toRawType 返回真实类型 调用<code>Object.prototype.toString</code> 获取后面的那个类型</li>
+<li>isPlainObject 是否为纯对象</li>
+<li>isRegExp 是否是正则</li>
+<li>isValidArrayIndex 判断是否可以为数组索引，其中调用<code>isFinite</code>判断是否为有限数</li>
+<li>isPromise 是否是promise</li>
+<li>toString 转换为字符串</li>
+<li>toNumber 转换成<code>number</code></li>
+<li>makeMap 生成一个<code>map</code>，返回一个可供查询的函数，第一个参数为字典，第二个为是否大小写敏感</li>
+<li>isBuiltInTag 由<code>makeMap</code>生成的查询函数 判断是否为<code>slot</code>或<code>component</code></li>
+<li>isReservedAttribute  <code>makeMap(&#39;key,ref,slot,slot-scope,is&#39;)</code> 功能同上，检查map不同</li>
+<li>remove 删除数组一个item</li>
+<li>hasOwn 是否有这个<code>property</code></li>
+<li>cached 利用闭包进行缓存</li>
+<li>camelize 连词符转小驼峰</li>
+<li>capitalize 首字母大写</li>
+<li>hyphenate 小驼峰转连词符</li>
+<li>bind<ul>
+<li>polyfillBind bind的降级版本 针对不同参数，进行使用call和apply的取舍</li>
+<li>nativeBind 原生bind</li>
+<li>分别实现两种bind 通过判断返回可用的bind</li>
+</ul>
+</li>
+<li>toArray 类数组转数组，支持以第二个参数为startIndex，返回一个新的数组</li>
+<li>extend 把from的添加到to中</li>
+<li>toObject 把数组每一项转换为对象，然后对这些对象做extend</li>
+<li>noop 空函数</li>
+<li>no 返回false的函数</li>
+<li>identity 返回参数本身</li>
+<li>genStaticKeys 生成静态key 把 modules 中的每个staticKeys合并并生成字符串返回</li>
+<li>looseEqual 比较两个值是否相同，是宽松相等，只比值，不比引用</li>
+<li>looseIndexOf 用上面方法比较数组中是否存在某个值，并返回index</li>
+<li>once 执行一次的函数</li>
+<li>hasChanged  与<code>Object.is</code>功能相同，不过是判断是否改变，返回相反，<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#polyfill">mdn</a></li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">hasChanged</span>(<span class="params">x: <span class="built_in">unknown</span>, y: <span class="built_in">unknown</span></span>): <span class="built_in">boolean</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (x === y) &#123;</span><br><span class="line">        <span class="keyword">return</span> x === <span class="number">0</span> &amp;&amp; <span class="number">1</span> / x !== <span class="number">1</span> / (y <span class="keyword">as</span> <span class="built_in">number</span>)  <span class="comment">// 考虑-0、+0的情况</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x === x || y === y <span class="comment">// 考虑NaN的情况</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字典(constants.ts)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">SSR_ATTR</span> = <span class="string">&#x27;data-server-rendered&#x27;</span></span><br><span class="line"><span class="comment">//ssr </span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">ASSET_TYPES</span> = [<span class="string">&#x27;component&#x27;</span>, <span class="string">&#x27;directive&#x27;</span>, <span class="string">&#x27;filter&#x27;</span>] <span class="keyword">as</span> <span class="keyword">const</span></span><br><span class="line"><span class="comment">// type</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">LIFECYCLE_HOOKS</span> = [</span><br><span class="line">  <span class="string">&#x27;beforeCreate&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;created&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;beforeMount&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;mounted&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;beforeUpdate&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;updated&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;beforeDestroy&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;destroyed&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;activated&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;deactivated&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;errorCaptured&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;serverPrefetch&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;renderTracked&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;renderTriggered&#x27;</span></span><br><span class="line">] <span class="keyword">as</span> <span class="keyword">const</span></span><br><span class="line"><span class="comment">// 生命周期</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>函数名语义话，便于阅读与理解代码</li>
+<li>函数功能固定唯一，粒子性高</li>
+<li>bind 的降级与 isChange 考虑了特殊情况</li>
+<li>最后的vue2版本已经用ts重写了类型，类型检查是很重要的</li>
+<li>阅读评论，看到一点 ES3中<code>undefined</code>是可以被赋值的。ES5之后全局的<code>undefined</code>就不能赋值了,但是局部的还是可以被赋值修改</li>
+</ul>
+]]></content>
+      <categories>
+        <category>源码阅读笔记</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
 </search>
