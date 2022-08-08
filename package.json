@@ -5,6 +5,10 @@
   "hexo": {
     "version": "6.2.0"
   },
+  "scripts": {
+    "cg": "hexo new draft", 
+    "d": "hexo g & hexo d"
+  },
   "dependencies": {
     "hexo": "^6.2.0",
     "hexo-cli": "^4.3.0",
