@@ -7,7 +7,7 @@
   },
   "scripts": {
     "cg": "hexo new draft", 
-    "d": "hexo g & hexo d",
+    "d": "hexo g -d",
     "post": "hexo P"
   },
   "dependencies": {
