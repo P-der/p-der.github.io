@@ -6,8 +6,9 @@
     "version": "6.2.0"
   },
   "scripts": {
-    "cg": "hexo new draft", 
-    "d": "hexo g -d",
+    "newDra": "hexo new draft", 
+    "deploy": "hexo g -d",
+    "start": "hexo s",
     "post": "hexo P"
   },
   "dependencies": {
