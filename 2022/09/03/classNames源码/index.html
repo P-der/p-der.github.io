@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="掘金  classNames 源码分析 仓库地址 功能介绍 这是一个常用的合并 css 中 class 名的工具函数库   提前准备  git clone https:&#x2F;&#x2F;github.com&#x2F;JedWatson&#x2F;classnames 或者查看 https:&#x2F;&#x2F;github.com&#x2F;JedWatson&#x2F;classnames&#x2F;blob&#x2F;master&#x2F;index.js 测试用例中的assert.eq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="classNames源码">
+<meta property="og:url" content="http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/index.html">
+<meta property="og:site_name" content="P_der的博客">
+<meta property="og:description" content="掘金  classNames 源码分析 仓库地址 功能介绍 这是一个常用的合并 css 中 class 名的工具函数库   提前准备  git clone https:&#x2F;&#x2F;github.com&#x2F;JedWatson&#x2F;classnames 或者查看 https:&#x2F;&#x2F;github.com&#x2F;JedWatson&#x2F;classnames&#x2F;blob&#x2F;master&#x2F;index.js 测试用例中的assert.eq">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-09-03T07:34:23.000Z">
+<meta property="article:modified_time" content="2022-09-03T09:17:59.843Z">
+<meta property="article:author" content="p_der">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>classNames源码</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/08/30/koa-compose%E6%BA%90%E7%A0%81/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&text=classNames源码"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&is_video=false&description=classNames源码"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=classNames源码&body=Check out this article: http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&name=classNames源码&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&t=classNames源码"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#classNames-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">classNames 源码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        classNames源码
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">p_der</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-09-03T07:34:23.000Z" itemprop="datePublished">2022-09-03</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">源码阅读笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/js/" rel="tag">js</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7139080024522670094">掘金</a></li>
+</ul>
+<h3 id="classNames-源码分析"><a href="#classNames-源码分析" class="headerlink" title="classNames 源码分析"></a>classNames 源码分析</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/JedWatson/classnames">仓库地址</a></li>
+<li>功能介绍<blockquote>
+<p>这是一个常用的合并 css 中 class 名的工具函数库</p>
+</blockquote>
+</li>
+<li>提前准备 <ul>
+<li>git clone <a target="_blank" rel="noopener" href="https://github.com/JedWatson/classnames">https://github.com/JedWatson/classnames</a></li>
+<li>或者查看 <a target="_blank" rel="noopener" href="https://github.com/JedWatson/classnames/blob/master/index.js">https://github.com/JedWatson/classnames/blob/master/index.js</a></li>
+<li>测试用例中的<code>assert.equal</code>为判断是否相等的函数，传入的删除相等的时候就会通过测试用例</li>
+</ul>
+</li>
+<li>手动实现：通过阅读 tests 文件夹中的测试用例我们可以逐条实现<ol>
+<li>传入参数为单一对象 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(</span><br><span class="line">    <span class="title function_">classNames</span>(&#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">c</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">d</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">e</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">f</span>: <span class="number">1</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="string">&quot;a f&quot;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+ 观察测试可以看出，传入为一个对象，根据 key 对应的 value 选择是否保留 key 到返回值中，由此可以写出以下代码 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">classNames</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> classes = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj.<span class="title function_">hasOwnProperty</span>(key) &amp;&amp; obj[key]) &#123;</span><br><span class="line">            classes.<span class="title function_">push</span>(key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> classes.<span class="title function_">join</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>当传入参数为多个基础类型 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(<span class="string">&quot;a&quot;</span>, <span class="number">0</span>, <span class="literal">null</span>, <span class="literal">undefined</span>, <span class="literal">true</span>, <span class="number">1</span>, <span class="string">&quot;b&quot;</span>), <span class="string">&quot;a 1 b&quot;</span>);</span><br></pre></td></tr></table></figure>
+ 观察测试可以看出，传入多个参数时，根据是否为真值，然后判断为字符串和数字，选择是否保留该参数，由此可以写出以下代码 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">classNames</span>(<span class="params">...arg</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> classes = [];</span><br><span class="line">    arg.<span class="title function_">forEach</span>(<span class="function">(<span class="params">element</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (element) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;string&quot;</span> || <span class="keyword">typeof</span> element === <span class="string">&quot;number&quot;</span>) &#123;</span><br><span class="line">                classes.<span class="title function_">push</span>(element);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> classes.<span class="title function_">join</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>当传入参数为 1 和 2 两种情况的合集 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(&#123; <span class="attr">a</span>: <span class="literal">true</span> &#125;, <span class="string">&quot;b&quot;</span>, <span class="number">0</span>), <span class="string">&quot;a b&quot;</span>);</span><br></pre></td></tr></table></figure>
+ 根据测试用例，和前两步写的代码，对代码进行合并，可以写出以下代码 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">classNames</span>(<span class="params">...arg</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> classes = [];</span><br><span class="line">    arg.<span class="title function_">forEach</span>(<span class="function">(<span class="params">element</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (element) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;string&quot;</span> || <span class="keyword">typeof</span> element === <span class="string">&quot;number&quot;</span>) &#123;</span><br><span class="line">                classes.<span class="title function_">push</span>(element);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;object&quot;</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> element) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (element.<span class="title function_">hasOwnProperty</span>(key) &amp;&amp; element[key]) &#123;</span><br><span class="line">                        classes.<span class="title function_">push</span>(key);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> classes.<span class="title function_">join</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>需要去掉两遍的空格 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(<span class="string">&quot;&quot;</span>, <span class="string">&quot;b&quot;</span>, &#123;&#125;, <span class="string">&quot;&quot;</span>), <span class="string">&quot;b&quot;</span>);</span><br></pre></td></tr></table></figure>
+ 因为我们之前的代码包括了处理假值的情况，所以无需修改代码 </li>
+<li>在传入空对象时，返回空字符串     <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(&#123;&#125;), <span class="string">&quot;&quot;</span>);</span><br></pre></td></tr></table></figure>
+ 运行下已经写的代码，满足条件进行下一条 </li>
+<li>传入参数为一个字符串数组的时候，需要返回数组的 value 拼接 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>([<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>]), <span class="string">&quot;a b&quot;</span>);</span><br></pre></td></tr></table></figure>
+ 根据这种情况修改代码，可以写出以下代码 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">classNames</span>(<span class="params">...arg</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> classes = [];</span><br><span class="line">    arg.<span class="title function_">forEach</span>(<span class="function">(<span class="params">element</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (element) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;string&quot;</span> || <span class="keyword">typeof</span> element === <span class="string">&quot;number&quot;</span>) &#123;</span><br><span class="line">                classes.<span class="title function_">push</span>(element);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(element)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (element.<span class="property">length</span>) &#123;</span><br><span class="line">                    classes = classes.<span class="title function_">concat</span>(element);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;object&quot;</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> element) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (element.<span class="title function_">hasOwnProperty</span>(key) &amp;&amp; element[key]) &#123;</span><br><span class="line">                        classes.<span class="title function_">push</span>(key);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="keyword">return</span> classes.<span class="title function_">join</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>传入参数为字符串数组和字符串  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>([<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>], <span class="string">&quot;c&quot;</span>), <span class="string">&quot;a b c&quot;</span>);</span><br><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(<span class="string">&quot;c&quot;</span>, [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>]), <span class="string">&quot;c a b&quot;</span>);</span><br></pre></td></tr></table></figure>
+  运行下已经写的代码，满足条件进行下一条</li>
+<li>传入参数为多个字符串数组 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>([<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>], [<span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>]), <span class="string">&quot;a b c d&quot;</span>);</span><br></pre></td></tr></table></figure>
+ 运行下已经写的代码，满足条件进行下一条 </li>
+<li>传入一个数组，并且每个值为基础类型时 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>([<span class="string">&quot;a&quot;</span>, <span class="number">0</span>, <span class="literal">null</span>, <span class="literal">undefined</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="string">&quot;b&quot;</span>]), <span class="string">&quot;a b&quot;</span>);</span><br></pre></td></tr></table></figure>
+ 运行下已经写的代码，发现出现了问题，需要对数组的每一项进行校验，这时我们会有两种选择，因为我们处理过这种逻辑，所以可以抽离这个处理逻辑，这是一种处理方式，还有一种就是可以把数组作为参数，调用我们的 classNames，进行递归调用，这里我们选择第二种处理方式，防止在很多嵌套的情况，这里类似树结构的两种遍历方式，可以写出以下代码 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">classNames</span>(<span class="params">...arg</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> classes = [];</span><br><span class="line">    arg.<span class="title function_">forEach</span>(<span class="function">(<span class="params">element</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (element) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;string&quot;</span> || <span class="keyword">typeof</span> element === <span class="string">&quot;number&quot;</span>) &#123;</span><br><span class="line">                classes.<span class="title function_">push</span>(element);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(element)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (element.<span class="property">length</span>) &#123;</span><br><span class="line">                    <span class="keyword">let</span> inner = <span class="title function_">classNames</span>(...element);</span><br><span class="line">                    classes.<span class="title function_">push</span>(inner);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;object&quot;</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> element) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (element.<span class="title function_">hasOwnProperty</span>(key) &amp;&amp; element[key]) &#123;</span><br><span class="line">                        classes.<span class="title function_">push</span>(key);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> classes.<span class="title function_">join</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>传入参数数组包含数组<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>([<span class="string">&quot;a&quot;</span>, [<span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]]), <span class="string">&quot;a b c&quot;</span>);</span><br></pre></td></tr></table></figure>
+运行下已经写的代码，满足条件进行下一条</li>
+<li>传入数组中包含对象<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>([<span class="string">&quot;a&quot;</span>, &#123; <span class="attr">b</span>: <span class="literal">true</span>, <span class="attr">c</span>: <span class="literal">false</span> &#125;]), <span class="string">&quot;a b&quot;</span>);</span><br></pre></td></tr></table></figure>
+运行下已经写的代码，满足条件进行下一条 </li>
+<li>传入参数为数组并且嵌套<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>([<span class="string">&#x27;a&#x27;</span>, [<span class="string">&#x27;b&#x27;</span>, [<span class="string">&#x27;c&#x27;</span>, &#123;<span class="attr">d</span>: <span class="literal">true</span>&#125;]]]), <span class="string">&#x27;a b c d&#x27;</span>);</span><br></pre></td></tr></table></figure>
+运行下已经写的代码，满足条件进行下一条 </li>
+<li>传入参数中有空数组<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(<span class="string">&#x27;a&#x27;</span>, []), <span class="string">&#x27;a&#x27;</span>);</span><br></pre></td></tr></table></figure>
+运行下已经写的代码，满足条件进行下一条 </li>
+<li>传入参数中有嵌套空数组<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(<span class="string">&#x27;a&#x27;</span>, [[]]), <span class="string">&#x27;a&#x27;</span>);</span><br></pre></td></tr></table></figure>
+运行下已经写的代码，发现出现了问题，函数运行结果为<code>&#39;a &#39;</code>，多了个空格，查看代码，发现存在递归数组为空的情况，不应该添加，修改代码<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">classNames</span>(<span class="params">...arg</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> classes = [];</span><br><span class="line">    arg.<span class="title function_">forEach</span>(<span class="function">(<span class="params">element</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (element) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;string&quot;</span> || <span class="keyword">typeof</span> element === <span class="string">&quot;number&quot;</span>) &#123;</span><br><span class="line">                classes.<span class="title function_">push</span>(element);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(element)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (element.<span class="property">length</span>) &#123;</span><br><span class="line">                    <span class="keyword">let</span> inner = <span class="title function_">classNames</span>(...element);</span><br><span class="line">                    inner &amp;&amp; classes.<span class="title function_">push</span>(inner);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;object&quot;</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> element) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (element.<span class="title function_">hasOwnProperty</span>(key) &amp;&amp; element[key]) &#123;</span><br><span class="line">                        classes.<span class="title function_">push</span>(key);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> classes.<span class="title function_">join</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>测试传入参数对象值为所有为<code>falsy</code>和<code>truthy</code>的情况<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">      assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(&#123;</span><br><span class="line">	<span class="comment">// falsy:</span></span><br><span class="line">	<span class="attr">null</span>: <span class="literal">null</span>,</span><br><span class="line">	<span class="attr">emptyString</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">	<span class="attr">noNumber</span>: <span class="title class_">NaN</span>,</span><br><span class="line">	<span class="attr">zero</span>: <span class="number">0</span>,</span><br><span class="line">	<span class="attr">negativeZero</span>: -<span class="number">0</span>,</span><br><span class="line">	<span class="attr">false</span>: <span class="literal">false</span>,</span><br><span class="line">	<span class="attr">undefined</span>: <span class="literal">undefined</span>,</span><br><span class="line"></span><br><span class="line">	<span class="comment">// truthy (literally anything else):</span></span><br><span class="line">	<span class="attr">nonEmptyString</span>: <span class="string">&quot;foobar&quot;</span>,</span><br><span class="line">	<span class="attr">whitespace</span>: <span class="string">&#x27; &#x27;</span>,</span><br><span class="line">	<span class="attr">function</span>: <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>,</span><br><span class="line">	<span class="attr">emptyObject</span>: &#123;&#125;,</span><br><span class="line">	<span class="attr">nonEmptyObject</span>: &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;,</span><br><span class="line">	<span class="attr">emptyList</span>: [],</span><br><span class="line">	<span class="attr">nonEmptyList</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">	<span class="attr">greaterZero</span>: <span class="number">1</span></span><br><span class="line">&#125;), <span class="string">&#x27;nonEmptyString whitespace function emptyObject nonEmptyObject emptyList nonEmptyList greaterZero&#x27;</span>);</span><br></pre></td></tr></table></figure>
+运行下已经写的代码，满足条件进行下一条 </li>
+<li>当传入参数为对象并有<code>toString</code>方法的时候，应返回该方法的调用值<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">      assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(&#123;</span><br><span class="line">	<span class="attr">toString</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="keyword">return</span> <span class="string">&#x27;classFromMethod&#x27;</span>; &#125;</span><br><span class="line">&#125;), <span class="string">&#x27;classFromMethod&#x27;</span>);</span><br></pre></td></tr></table></figure>
+根据测试修改代码为以下代码<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">classNames</span>(<span class="params">...arg</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> classes = [];</span><br><span class="line">    arg.<span class="title function_">forEach</span>(<span class="function">(<span class="params">element</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (element) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;string&quot;</span> || <span class="keyword">typeof</span> element === <span class="string">&quot;number&quot;</span>) &#123;</span><br><span class="line">            classes.<span class="title function_">push</span>(element);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Array</span>.<span class="title function_">isArray</span>(element)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (element.<span class="property">length</span>) &#123;</span><br><span class="line">                <span class="keyword">let</span> inner = <span class="title function_">classNames</span>(...element);</span><br><span class="line">                inner &amp;&amp; classes.<span class="title function_">push</span>(inner);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> element === <span class="string">&quot;object&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(element.<span class="property">toString</span> === <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>) &#123; <span class="comment">// 是否为原装</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> element) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (element.<span class="title function_">hasOwnProperty</span>(key) &amp;&amp; element[key]) &#123;</span><br><span class="line">                        classes.<span class="title function_">push</span>(key);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                classes.<span class="title function_">push</span>(element.<span class="title function_">toString</span>());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> classes.<span class="title function_">join</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>当传入参数为对象并继承<code>toString</code>方法的时候，应返回该方法的调用值<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">      <span class="keyword">var</span> <span class="title class_">Class1</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Class2</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;;</span><br><span class="line"><span class="title class_">Class1</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="keyword">return</span> <span class="string">&#x27;classFromMethod&#x27;</span>; &#125;</span><br><span class="line"><span class="title class_">Class2</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">Class1</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line"></span><br><span class="line">assert.<span class="title function_">equal</span>(<span class="title function_">classNames</span>(<span class="keyword">new</span> <span class="title class_">Class2</span>()), <span class="string">&#x27;classFromMethod&#x27;</span>);</span><br></pre></td></tr></table></figure>
+运行下已经写的代码，满足条件</li>
+</ol>
+<ul>
+<li>根据这些测试用例，其实我们已经完成了<code>className</code>的所有功能，这其实就是测试驱动开发</li>
+</ul>
+</li>
+<li>手动实现与源码对比<ul>
+<li>源码使用<code>apply</code>，强绑定了this，兼容性更好</li>
+<li>源码参数为空的时候提前返回，可以减少阅读者的理解成本</li>
+<li>源码对于多次调用的<code>typeof</code>判断进行抽离为变量，减少重复判断 </li>
+<li>源码提取<code>hasOwnProperty</code>方法，使用<code>call</code>，强绑定了this</li>
+<li>源码实现了一个umd的形式，去导出方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>学习了源码的实现，使用了umd的导出方式</li>
+<li>通过测试驱动的形式自己实现了<code>classNames</code>，测试可以极大程度上增加代码的健壮性</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#classNames-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">classNames 源码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&text=classNames源码"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&is_video=false&description=classNames源码"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=classNames源码&body=Check out this article: http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&title=classNames源码"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&name=classNames源码&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2022/09/03/classNames%E6%BA%90%E7%A0%81/&t=classNames源码"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    p_der
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/tags/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/categories/">Category</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
