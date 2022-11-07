@@ -9,7 +9,7 @@
     "newDra": "hexo new draft", 
     "deploy": "hexo g -d",
     "start": "hexo s",
-    "post": "hexo P"
+    "post": "hexo P" 
   },
   "dependencies": {
     "hexo": "^6.2.0",
