@@ -8,7 +8,7 @@
   "scripts": {
     "newDra": "hexo new draft", 
     "deploy": "hexo g -d",
-    "start": "hexo s",
+    "start": "hexo s --draft",
     "post": "hexo P" 
   },
   "dependencies": {
