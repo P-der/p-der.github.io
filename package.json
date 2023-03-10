@@ -7,9 +7,10 @@
   },
   "scripts": {
     "newDra": "hexo new draft", 
-    "deploy": "hexo g -d",
-    "start": "hexo s --draft",
-    "post": "hexo P" 
+    "d": "hexo g -d",
+    "s": "hexo s --draft",
+    "post": "hexo P",
+    "p": "hexo publish"
   },
   "dependencies": {
     "hexo": "^6.2.0",
