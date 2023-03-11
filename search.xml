@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>单例模式</title>
+      <link href="/2023/03/11/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2023/03/11/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<ul><li>定义：保证一个类只有一个实例，并提供一个访问该实例的全局节点</li></ul><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="attr">instance</span>: <span class="title class_">Singleton</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">constructor</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">getInstance</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="title class_">Singleton</span>.<span class="property">instance</span>) &#123;</span><br><span class="line">            <span class="title class_">Singleton</span>.<span class="property">instance</span> = <span class="keyword">new</span> <span class="title class_">Singleton</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Singleton</span>.<span class="property">instance</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> s1 = <span class="title class_">Singleton</span>.<span class="title function_">getInstance</span>();</span><br><span class="line"><span class="keyword">const</span> s2 = <span class="title class_">Singleton</span>.<span class="title function_">getInstance</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(s1 === s2) <span class="comment">// true</span></span><br></pre></td></tr></table></figure><ul><li>缺点：不利于单元测试</li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>原型模式</title>
       <link href="/2023/03/11/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"/>
       <url>/2023/03/11/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</url>
